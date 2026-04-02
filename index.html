@@ -217,7 +217,7 @@
       </div>
       <div class="stats-grid">
         <div class="stat-cell"><div class="stat-num">9</div><div class="stat-lbl">Formats</div></div>
-        <div class="stat-cell"><div class="stat-num">66</div><div class="stat-lbl">Scenarios</div></div>
+        <div class="stat-cell"><div class="stat-num">68</div><div class="stat-lbl">Scenarios</div></div>
         <div class="stat-cell"><div class="stat-num">5</div><div class="stat-lbl">Known Bugs</div></div>
         <div class="stat-cell"><div class="stat-num">12+</div><div class="stat-lbl">Min Players</div></div>
       </div>
@@ -1013,7 +1013,7 @@
         <div class="section-title">Classic Mexicano</div>
         <div class="section-sub">Individual players · Standings-based pairing · Dynamic future rounds · Typical: 13–17 players</div>
       </div>
-      <div class="section-badge"><span class="badge badge-green">9 scenarios</span></div>
+      <div class="section-badge"><span class="badge badge-green">10 scenarios</span></div>
     </div>
 
     <div class="scenario">
@@ -1265,6 +1265,42 @@
       </div>
     </div>
 
+    <div class="scenario">
+      <div class="scenario-header">
+        <div class="scenario-id">MEX-010</div>
+        <div class="scenario-title">Partial round score does NOT reassign partners or delete future rounds</div>
+        <span class="badge badge-red">Regression · RC-1 / RC-6</span>
+      </div>
+      <div class="scenario-body">
+        <h4>Preconditions</h4>
+        <div class="preconditions"><ul>
+          <li>Classic Mexicano, 16 players, 4 courts, round 1 generated</li>
+          <li>Round 2 placeholder already exists in DB (generated at tournament creation)</li>
+          <li>Record the partner assignment for every player in round 1 before submitting any score</li>
+        </ul></div>
+        <h4>Steps</h4>
+        <div class="steps"><ol>
+          <li>Submit the score for Court 1 only (1 of 4 courts scored)</li>
+          <li>Immediately check: round 1 partner assignments for all 4 courts</li>
+          <li>Immediately check: round 2 data still exists in DB</li>
+          <li>Submit scores for Courts 2 and 3 (3 of 4 courts scored)</li>
+          <li>Repeat check: round 1 assignments unchanged, round 2 still present</li>
+          <li>Submit the final score for Court 4 (round complete)</li>
+          <li>Now check: round 2 regenerated from updated standings</li>
+        </ol></div>
+        <h4>Assertions</h4>
+        <div class="assertions"><ul>
+          <li>After step 2: all round 1 partner assignments identical to pre-score snapshot — <strong>no player moved</strong></li>
+          <li>After step 2: round 2 DB rows still present — <strong>not deleted</strong></li>
+          <li>After step 5: same — partner assignments and round 2 untouched after 3rd score</li>
+          <li>After step 7: round 2 regenerated from updated standings (this is expected and correct)</li>
+          <li>At no point between steps 1–5 does any player's <code>partner_id</code> change</li>
+          <li>At no point between steps 1–5 are future round rows deleted from <code>event_rounds</code></li>
+        </ul></div>
+        <div class="bug-note"><strong>⚠ RC-1 + RC-6:</strong> Without the completeness guard, each partial score triggers <code>generateNextRound()</code> + <code>deleteRoundsAfter()</code> immediately — reassigning partners and wiping future rounds mid-round. This test catches both regressions in a single scenario.</div>
+      </div>
+    </div>
+
 
     <!-- ═══════════════════════════════════════
          TEAM MEXICANO
@@ -1275,7 +1311,7 @@
         <div class="section-title">Team Mexicano</div>
         <div class="section-sub">Fixed 2-player teams · Standings-based pairing · Team sit-outs · Typical: 12–16 players (6–8 teams)</div>
       </div>
-      <div class="section-badge"><span class="badge badge-blue">6 scenarios</span></div>
+      <div class="section-badge"><span class="badge badge-blue">7 scenarios</span></div>
     </div>
 
     <div class="scenario">
@@ -1435,6 +1471,39 @@
           <li>This rank difference means round 5 pairs Alpha differently from Beta</li>
           <li>Rank ordering confirmed: <code>rank</code> column used (not raw <code>points</code> for tiebreaker)</li>
         </ul></div>
+      </div>
+    </div>
+
+    <div class="scenario">
+      <div class="scenario-header">
+        <div class="scenario-id">TMEX-007</div>
+        <div class="scenario-title">Partial round score does NOT delete future rounds for team format</div>
+        <span class="badge badge-red">Regression · RC-6</span>
+      </div>
+      <div class="scenario-body">
+        <h4>Preconditions</h4>
+        <div class="preconditions"><ul>
+          <li>Team Mexicano, 12 teams, 3 courts, round 1 complete, round 2 in progress</li>
+          <li>Round 3 placeholder exists in DB</li>
+          <li>Record round 2 team assignments before submitting any round 2 score</li>
+        </ul></div>
+        <h4>Steps</h4>
+        <div class="steps"><ol>
+          <li>Submit score for Court 1 only (1 of 3 courts in round 2)</li>
+          <li>Check: round 2 team assignments for Courts 2 and 3 — unchanged</li>
+          <li>Check: round 3 rows still present in DB</li>
+          <li>Submit scores for Courts 2 and 3 (round 2 now complete)</li>
+          <li>Check: round 3 regenerated based on round 2 standings</li>
+        </ul></div>
+        <h4>Assertions</h4>
+        <div class="assertions"><ul>
+          <li>After step 2: team assignments for unscored courts in round 2 are <strong>identical to snapshot</strong></li>
+          <li>After step 3: round 3 DB rows present — <strong>not deleted by partial score</strong></li>
+          <li>After step 5: round 3 regenerated correctly — this is expected</li>
+          <li>Team composition never changes (both players on each team stay together) — this is a Team Mexicano invariant</li>
+          <li>Note: RC-1 (partner reassignment) does NOT apply here — teams are fixed. Only RC-6 (premature round deletion) is under test.</li>
+        </ul></div>
+        <div class="bug-note"><strong>⚠ RC-6:</strong> Without the completeness guard, each partial score triggers <code>deleteRoundsAfter()</code> immediately — wiping round 3 after a single round 2 score. Partner identity is safe (teams are fixed) but round data is lost until regenerated. This test catches the RC-6 regression specifically for Team Mexicano.</div>
       </div>
     </div>
 
@@ -2547,3 +2616,4 @@
 
 </body>
 </html>
+
