@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>E2E Tournament Scenarios — The Padel Society</title>
+<title>E2E Tournament Test Plan — The Padel Society</title>
 <style>
   :root {
     --green: #2ECC71;
@@ -24,253 +24,176 @@
     --border: #E8ECEF;
     --white: #FFFFFF;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #F4F6F9; color: var(--dark); line-height: 1.6; }
 
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: #F4F6F9;
-    color: var(--dark);
-    line-height: 1.6;
-  }
-
-  /* ── Header ── */
-  .header {
-    background: linear-gradient(135deg, var(--dark) 0%, #1a252f 100%);
-    color: white;
-    padding: 48px 40px;
-    border-bottom: 4px solid var(--green);
-  }
+  /* Header */
+  .header { background: linear-gradient(135deg, var(--dark) 0%, #1a252f 100%); color: white; padding: 48px 40px; border-bottom: 4px solid var(--green); }
   .header-inner { max-width: 1200px; margin: 0 auto; }
-  .header-badge {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: rgba(46,204,113,0.15); border: 1px solid rgba(46,204,113,0.4);
-    border-radius: 20px; padding: 4px 14px;
-    font-size: 12px; font-weight: 600; color: var(--green); letter-spacing: 0.5px;
-    text-transform: uppercase; margin-bottom: 16px;
-  }
+  .header-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(46,204,113,0.15); border: 1px solid rgba(46,204,113,0.4); border-radius: 20px; padding: 4px 14px; font-size: 12px; font-weight: 600; color: var(--green); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 16px; }
   .header h1 { font-size: 36px; font-weight: 800; letter-spacing: -1px; margin-bottom: 10px; }
   .header h1 span { color: var(--green); }
   .header-meta { display: flex; gap: 24px; margin-top: 20px; flex-wrap: wrap; }
   .meta-item { font-size: 13px; color: rgba(255,255,255,0.6); }
   .meta-item strong { color: rgba(255,255,255,0.9); }
 
-  /* ── Layout ── */
+  /* Layout */
   .layout { max-width: 1200px; margin: 0 auto; padding: 32px 40px; display: grid; grid-template-columns: 260px 1fr; gap: 32px; align-items: start; }
 
-  /* ── Sidebar ── */
+  /* Sidebar */
   .sidebar { position: sticky; top: 24px; }
-  .nav-card {
-    background: white; border-radius: 12px; border: 1px solid var(--border);
-    overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-  }
-  .nav-card-header {
-    background: var(--dark); color: white;
-    padding: 14px 18px; font-size: 11px; font-weight: 700; letter-spacing: 1px;
-    text-transform: uppercase;
-  }
+  .nav-card { background: white; border-radius: 12px; border: 1px solid var(--border); overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .nav-card-header { background: var(--dark); color: white; padding: 14px 18px; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
   .nav-section { padding: 12px 0; border-bottom: 1px solid var(--border); }
   .nav-section:last-child { border-bottom: none; }
-  .nav-section-label {
-    padding: 6px 18px 4px;
-    font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
-    color: var(--mid);
-  }
-  .nav-item {
-    display: flex; align-items: center; gap: 10px;
-    padding: 7px 18px; font-size: 13px; color: var(--dark);
-    text-decoration: none; transition: background 0.15s;
-  }
+  .nav-section-label { padding: 6px 18px 4px; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--mid); }
+  .nav-item { display: flex; align-items: center; gap: 10px; padding: 7px 18px; font-size: 13px; color: var(--dark); text-decoration: none; transition: background 0.15s; }
   .nav-item:hover { background: var(--gray-light); }
-  .nav-dot {
-    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
-  }
+  .nav-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
   .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); }
   .stat-cell { background: white; padding: 14px 18px; text-align: center; }
   .stat-num { font-size: 24px; font-weight: 800; color: var(--dark); }
   .stat-lbl { font-size: 11px; color: var(--mid); margin-top: 2px; }
 
-  /* ── Content ── */
+  /* Content */
   .content { min-width: 0; }
 
-  /* ── Summary table ── */
-  .summary-card {
-    background: white; border-radius: 12px; border: 1px solid var(--border);
-    box-shadow: 0 1px 4px rgba(0,0,0,0.06); margin-bottom: 32px; overflow: hidden;
-  }
-  .card-header {
-    padding: 20px 24px 16px; border-bottom: 1px solid var(--border);
-    display: flex; align-items: center; gap: 12px;
-  }
-  .card-header-icon {
-    width: 36px; height: 36px; border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 16px;
-  }
-  .card-header h2 { font-size: 18px; font-weight: 700; }
-  .card-header p { font-size: 13px; color: var(--mid); margin-top: 2px; }
+  /* PRD Section cards */
+  .prd-card { background: white; border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 1px 4px rgba(0,0,0,0.06); margin-bottom: 24px; overflow: hidden; }
+  .prd-card-header { padding: 18px 24px 14px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; }
+  .prd-card-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .prd-card-header h2 { font-size: 17px; font-weight: 700; }
+  .prd-card-header p { font-size: 13px; color: var(--mid); margin-top: 2px; }
+  .prd-card-body { padding: 20px 24px; font-size: 14px; line-height: 1.7; }
+  .prd-card-body p { margin-bottom: 12px; }
+  .prd-card-body p:last-child { margin-bottom: 0; }
 
+  /* Info grid */
+  .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 0; }
+  .info-block h4 { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--mid); margin-bottom: 6px; }
+  .info-block p, .info-block li { font-size: 13px; color: var(--dark); }
+  .info-block ul { list-style: none; }
+  .info-block li { padding: 2px 0; }
+  .info-block li::before { content: "→ "; color: var(--green); font-weight: 700; }
+
+  /* Tables */
   table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  thead th {
-    text-align: left; padding: 10px 16px;
-    background: var(--gray-light); font-size: 11px; font-weight: 700;
-    letter-spacing: 0.5px; text-transform: uppercase; color: var(--mid);
-    border-bottom: 1px solid var(--border);
-  }
-  tbody td { padding: 10px 16px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  thead th { text-align: left; padding: 10px 16px; background: var(--gray-light); font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--mid); border-bottom: 1px solid var(--border); }
+  tbody td { padding: 10px 16px; border-bottom: 1px solid var(--border); vertical-align: middle; }
   tbody tr:last-child td { border-bottom: none; }
   tbody tr:hover td { background: #FAFBFC; }
 
-  .badge {
-    display: inline-block; padding: 2px 8px; border-radius: 4px;
-    font-size: 11px; font-weight: 600; white-space: nowrap;
-  }
+  /* Badges */
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; white-space: nowrap; }
   .badge-green { background: var(--green-light); color: var(--green-dark); }
   .badge-orange { background: var(--orange-light); color: var(--orange); }
   .badge-blue { background: var(--blue-light); color: var(--blue); }
   .badge-purple { background: var(--purple-light); color: var(--purple); }
   .badge-red { background: var(--red-light); color: var(--red); }
   .badge-gray { background: var(--gray-light); color: var(--mid); }
+  .badge-dark { background: var(--dark); color: white; }
+  .check { color: var(--green); font-weight: 700; }
+  .cross { color: var(--red); font-weight: 700; }
 
-  .check { color: var(--green); font-size: 14px; }
-  .cross { color: var(--red); font-size: 14px; }
+  /* Bug rows */
+  .bug-row td:first-child { border-left: 3px solid var(--red); }
 
-  /* ── Section ── */
-  .section-header {
-    display: flex; align-items: center; gap: 14px;
-    margin: 40px 0 20px; padding-bottom: 14px;
-    border-bottom: 2px solid var(--border);
-  }
-  .section-icon {
-    width: 44px; height: 44px; border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 20px; flex-shrink: 0;
-  }
+  /* Known bugs block */
+  .bug-block { border: 1px solid #f5c6cb; border-radius: 8px; overflow: hidden; margin-bottom: 12px; }
+  .bug-block-header { background: var(--red-light); padding: 10px 16px; display: flex; align-items: center; gap: 10px; }
+  .bug-id { font-size: 11px; font-weight: 800; letter-spacing: 0.5px; font-family: monospace; background: var(--red); color: white; padding: 2px 8px; border-radius: 3px; }
+  .bug-block-header strong { font-size: 14px; color: var(--red); }
+  .bug-block-body { padding: 12px 16px; font-size: 13px; background: white; }
+  .bug-block-body p { margin-bottom: 6px; }
+  .bug-block-body p:last-child { margin-bottom: 0; }
+
+  /* Coverage matrix */
+  .cov-table td { text-align: center; }
+  .cov-table td:first-child { text-align: left; font-weight: 600; }
+
+  /* Section headers */
+  .section-header { display: flex; align-items: center; gap: 14px; margin: 40px 0 20px; padding-bottom: 14px; border-bottom: 2px solid var(--border); }
+  .section-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
   .section-title { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; }
   .section-sub { font-size: 13px; color: var(--mid); margin-top: 3px; }
   .section-badge { margin-left: auto; }
 
-  /* ── Scenario card ── */
-  .scenario {
-    background: white; border-radius: 12px; border: 1px solid var(--border);
-    box-shadow: 0 1px 4px rgba(0,0,0,0.06); margin-bottom: 16px; overflow: hidden;
-  }
-  .scenario-header {
-    display: flex; align-items: center; gap: 12px;
-    padding: 14px 20px; border-bottom: 1px solid var(--border);
-    background: var(--gray-light);
-  }
-  .scenario-id {
-    font-size: 11px; font-weight: 800; letter-spacing: 1px;
-    font-family: 'SFMono-Regular', Consolas, monospace;
-    padding: 3px 10px; border-radius: 4px;
-    background: var(--dark); color: white; white-space: nowrap;
-  }
+  /* Scenario cards */
+  .scenario { background: white; border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 1px 4px rgba(0,0,0,0.06); margin-bottom: 16px; overflow: hidden; }
+  .scenario-header { display: flex; align-items: center; gap: 12px; padding: 14px 20px; border-bottom: 1px solid var(--border); background: var(--gray-light); flex-wrap: wrap; }
+  .scenario-id { font-size: 11px; font-weight: 800; letter-spacing: 1px; font-family: 'SFMono-Regular', Consolas, monospace; padding: 3px 10px; border-radius: 4px; background: var(--dark); color: white; white-space: nowrap; }
   .scenario-title { font-size: 15px; font-weight: 700; flex: 1; }
-  .scenario-type { font-size: 11px; }
   .scenario-body { padding: 18px 20px; }
-  .scenario-body h4 {
-    font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
-    color: var(--mid); margin-bottom: 8px; margin-top: 16px;
-  }
+  .scenario-body h4 { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--mid); margin-bottom: 8px; margin-top: 16px; }
   .scenario-body h4:first-child { margin-top: 0; }
-  .preconditions {
-    background: var(--blue-light); border-left: 3px solid var(--blue);
-    border-radius: 0 6px 6px 0; padding: 10px 14px; font-size: 13px;
-  }
+  .preconditions { background: var(--blue-light); border-left: 3px solid var(--blue); border-radius: 0 6px 6px 0; padding: 10px 14px; font-size: 13px; }
   .preconditions ul { list-style: none; }
   .preconditions li { padding: 2px 0; }
   .preconditions li::before { content: "→ "; color: var(--blue); font-weight: 700; }
-
   .steps ol { padding-left: 0; list-style: none; counter-reset: steps; }
-  .steps li {
-    counter-increment: steps; display: flex; gap: 12px;
-    padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 13px;
-  }
+  .steps li { counter-increment: steps; display: flex; gap: 12px; padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
   .steps li:last-child { border-bottom: none; }
-  .steps li::before {
-    content: counter(steps);
-    min-width: 22px; height: 22px; border-radius: 50%;
-    background: var(--dark); color: white;
-    font-size: 11px; font-weight: 800;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0; margin-top: 1px;
-  }
-
+  .steps li::before { content: counter(steps); min-width: 22px; height: 22px; border-radius: 50%; background: var(--dark); color: white; font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
   .assertions ul { list-style: none; }
-  .assertions li {
-    display: flex; gap: 8px; padding: 4px 0; font-size: 13px;
-    border-bottom: 1px dotted var(--border);
-  }
+  .assertions li { display: flex; gap: 8px; padding: 4px 0; font-size: 13px; border-bottom: 1px dotted var(--border); }
   .assertions li:last-child { border-bottom: none; }
   .assertions li::before { content: "✓"; color: var(--green); font-weight: 700; flex-shrink: 0; }
-
-  .edge-cases {
-    background: var(--orange-light); border-left: 3px solid var(--orange);
-    border-radius: 0 6px 6px 0; padding: 10px 14px;
-  }
+  .edge-cases { background: var(--orange-light); border-left: 3px solid var(--orange); border-radius: 0 6px 6px 0; padding: 10px 14px; }
   .edge-cases ul { list-style: none; font-size: 13px; }
   .edge-cases li { padding: 2px 0; }
   .edge-cases li::before { content: "⚠ "; color: var(--orange); font-weight: 700; }
-
-  .bug-note {
-    background: var(--red-light); border-left: 3px solid var(--red);
-    border-radius: 0 6px 6px 0; padding: 10px 14px;
-    font-size: 13px; margin-top: 12px;
-  }
+  .bug-note { background: var(--red-light); border-left: 3px solid var(--red); border-radius: 0 6px 6px 0; padding: 10px 14px; font-size: 13px; margin-top: 12px; }
   .bug-note strong { color: var(--red); }
 
-  /* ── Cross-cutting ── */
   .cross-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
-  @media (max-width: 800px) { .cross-grid { grid-template-columns: 1fr; } }
 
-  /* ── Responsive ── */
   @media (max-width: 900px) {
     .layout { grid-template-columns: 1fr; padding: 20px; }
     .sidebar { position: static; }
     .header { padding: 32px 20px; }
     .header h1 { font-size: 26px; }
     .cross-grid { grid-template-columns: 1fr; }
+    .info-grid { grid-template-columns: 1fr; }
   }
 
-  /* ── Footnote ── */
-  .footnote {
-    max-width: 1200px; margin: 0 auto; padding: 24px 40px;
-    font-size: 12px; color: var(--mid); border-top: 1px solid var(--border);
-    display: flex; justify-content: space-between; align-items: center; flex-wrap: gap-12px;
-  }
+  .footnote { max-width: 1200px; margin: 0 auto; padding: 24px 40px; font-size: 12px; color: var(--mid); border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
 </style>
 </head>
 <body>
 
-<!-- ══════════════════════════════════════════════
-     HEADER
-══════════════════════════════════════════════ -->
+<!-- HEADER -->
 <div class="header">
   <div class="header-inner">
-    <div class="header-badge">🎾 The Padel Society · QA</div>
-    <h1>E2E Test Scenarios<br><span>Tournament System</span></h1>
-    <p style="color:rgba(255,255,255,0.55); font-size:14px; margin-top:8px; max-width:640px;">
-      Comprehensive end-to-end test scenarios for all 9 tournament formats. Covers event creation, round generation, score submission, standings, rotation logic, advancement, and edge cases. Authored as QA automation spec + Product Manager validation guide.
+    <div class="header-badge">🎾 The Padel Society · Test Plan</div>
+    <h1>E2E Test Plan — <span>Tournament System</span></h1>
+    <p style="color:rgba(255,255,255,0.55);font-size:14px;margin-top:8px;max-width:680px;">
+      End-to-end test plan covering all 9 tournament formats: event creation, round generation, score submission, standings, rotation, advancement, edge cases, and permissions. Authored for QA automation and product validation.
     </p>
     <div class="header-meta">
+      <div class="meta-item"><strong>Document version:</strong> 1.0</div>
+      <div class="meta-item"><strong>Date:</strong> April 2026</div>
       <div class="meta-item"><strong>Formats covered:</strong> 9 tournament types</div>
       <div class="meta-item"><strong>Scenarios:</strong> 66 E2E scenarios</div>
-      <div class="meta-item"><strong>Version:</strong> 1.0 · April 2026</div>
-      <div class="meta-item"><strong>Engine:</strong> event-tournament-v3 + Challonge</div>
+      <div class="meta-item"><strong>Status:</strong> <span style="color:var(--green)">Active</span></div>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════
-     MAIN LAYOUT
-══════════════════════════════════════════════ -->
+<!-- LAYOUT -->
 <div class="layout">
 
-  <!-- ── Sidebar ── -->
+  <!-- SIDEBAR -->
   <aside class="sidebar">
     <div class="nav-card">
-      <div class="nav-card-header">Tournament Types</div>
+      <div class="nav-card-header">Contents</div>
+      <div class="nav-section">
+        <div class="nav-section-label">Document</div>
+        <a class="nav-item" href="#overview"><span class="nav-dot" style="background:#95A5A6"></span>Overview &amp; Purpose</a>
+        <a class="nav-item" href="#scope"><span class="nav-dot" style="background:#95A5A6"></span>Scope &amp; Architecture</a>
+        <a class="nav-item" href="#known-bugs"><span class="nav-dot" style="background:#E74C3C"></span>Known Bugs to Test</a>
+        <a class="nav-item" href="#coverage"><span class="nav-dot" style="background:#95A5A6"></span>Coverage Matrix</a>
+        <a class="nav-item" href="#formats"><span class="nav-dot" style="background:#95A5A6"></span>Format Summary</a>
+      </div>
       <div class="nav-section">
         <div class="nav-section-label">Individual Engine</div>
         <a class="nav-item" href="#americano"><span class="nav-dot" style="background:#2ECC71"></span>Americano</a>
@@ -295,102 +218,384 @@
       <div class="stats-grid">
         <div class="stat-cell"><div class="stat-num">9</div><div class="stat-lbl">Formats</div></div>
         <div class="stat-cell"><div class="stat-num">66</div><div class="stat-lbl">Scenarios</div></div>
-        <div class="stat-cell"><div class="stat-num">3</div><div class="stat-lbl">Engines</div></div>
-        <div class="stat-cell"><div class="stat-num">12</div><div class="stat-lbl">Edge Cases</div></div>
+        <div class="stat-cell"><div class="stat-num">5</div><div class="stat-lbl">Known Bugs</div></div>
+        <div class="stat-cell"><div class="stat-num">12+</div><div class="stat-lbl">Min Players</div></div>
       </div>
     </div>
   </aside>
 
-  <!-- ── Main content ── -->
+  <!-- MAIN CONTENT -->
   <main class="content">
 
-    <!-- ════════════════════════════════
-         SUMMARY TABLE
-    ════════════════════════════════ -->
-    <div class="summary-card">
-      <div class="card-header">
-        <div class="card-header-icon" style="background:#EAF7F1">🗂️</div>
+    <!-- ═══════════════════════════════════════
+         SECTION 1: OVERVIEW & PURPOSE
+    ═══════════════════════════════════════ -->
+    <div id="overview" class="prd-card">
+      <div class="prd-card-header">
+        <div class="prd-card-icon" style="background:#EAF7F1">📋</div>
+        <div>
+          <h2>Overview &amp; Purpose</h2>
+          <p>What this document is and who it is for</p>
+        </div>
+      </div>
+      <div class="prd-card-body">
+        <div class="info-grid">
+          <div class="info-block">
+            <h4>Purpose</h4>
+            <p>This document defines the complete end-to-end test plan for The Padel Society tournament system. It covers all tournament formats available when an organizer creates a tournament event. Each scenario specifies preconditions, user steps, and exact assertions so QA engineers can automate or manually validate the feature.</p>
+          </div>
+          <div class="info-block">
+            <h4>Audience</h4>
+            <ul>
+              <li>QA Engineers running E2E or manual tests</li>
+              <li>Product Managers validating behaviour before release</li>
+              <li>Engineers reviewing expected system contracts</li>
+              <li>Organizers onboarding onto new tournament formats</li>
+            </ul>
+          </div>
+          <div class="info-block" style="margin-top:16px;">
+            <h4>Realistic Player Counts</h4>
+            <p>All scenarios use realistic event sizes. Minimum for any tournament is 12 players (3 courts × 4 players). Typical events have 16–20 players across 4–5 courts. Scenarios calling out edge cases at lower counts (e.g. exact boundary tests) are labelled explicitly.</p>
+          </div>
+          <div class="info-block" style="margin-top:16px;">
+            <h4>Test Execution Approach</h4>
+            <ul>
+              <li>Automated E2E: Playwright against staging device/simulator</li>
+              <li>Manual validation: organizer role on real event</li>
+              <li>Unit tests cover pairing algorithms separately</li>
+              <li>Feature flags tested in isolation before rollout</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+         SECTION 2: SCOPE & ARCHITECTURE
+    ═══════════════════════════════════════ -->
+    <div id="scope" class="prd-card">
+      <div class="prd-card-header">
+        <div class="prd-card-icon" style="background:#EBF5FB">🏗️</div>
+        <div>
+          <h2>Scope &amp; System Architecture</h2>
+          <p>What is being tested and how the system is built</p>
+        </div>
+      </div>
+      <div class="prd-card-body">
+        <div class="info-grid">
+          <div class="info-block">
+            <h4>In Scope</h4>
+            <ul>
+              <li>All 9 tournament type creation flows</li>
+              <li>Round generation and regeneration logic</li>
+              <li>Score submission and standings calculation</li>
+              <li>Court rotation and player/team sit-outs</li>
+              <li>Knockout bracket advancement and seeding</li>
+              <li>Feature flag gating per format</li>
+              <li>Organizer permissions enforcement</li>
+              <li>Tournament reset and end flows</li>
+            </ul>
+          </div>
+          <div class="info-block">
+            <h4>Out of Scope</h4>
+            <ul>
+              <li>Payment flows tied to event entry</li>
+              <li>Court booking system (separate feature)</li>
+              <li>Push notification delivery on score updates</li>
+              <li>Playtomic scraping / court sync</li>
+              <li>Community/social features (Amity UI Kit)</li>
+              <li>Player level certification flow</li>
+            </ul>
+          </div>
+        </div>
+        <div style="margin-top:20px;">
+          <h4 style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--mid);margin-bottom:12px;">Backend Architecture</h4>
+          <table>
+            <thead>
+              <tr><th>Engine</th><th>Formats</th><th>Entry Point</th><th>Round Generation</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="badge badge-green">v3 Local Engine</span></td>
+                <td>Americano, Team Americano, Classic Mexicano, Team Mexicano</td>
+                <td><code>event-tournament-v3</code> (Supabase Edge Function)</td>
+                <td>Upfront for Americano; dynamic regeneration for Mexicano</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-orange">v3 KOC Engine</span></td>
+                <td>King of Courts, Team King of Courts</td>
+                <td><code>event-tournament-v3</code> → <code>KingOfCourtsTournamentService</code></td>
+                <td>Next round only (after current round complete)</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-purple">Challonge</span></td>
+                <td>Round Robin, Knockout, RR + Knockout</td>
+                <td><code>event-tournament-v3</code> → Challonge API → sync</td>
+                <td>All matches upfront; bracket via Challonge</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="margin-top:20px;">
+          <h4 style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--mid);margin-bottom:12px;">Key Feature Flags (PostHog)</h4>
+          <table>
+            <thead>
+              <tr><th>Flag</th><th>Controls</th><th>Formats Affected</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>in_app_level_certification</code></td><td>Certify player level from profile</td><td>Global</td></tr>
+              <tr><td><code>miniTournament</code></td><td>Round Robin, Knockout, RR+KO creation</td><td>Mini tournaments</td></tr>
+              <tr><td><code>addMoreRound</code></td><td>"Add Round" button after tournament is live</td><td>Americano, Team Americano</td></tr>
+              <tr><td><code>new_logic_king_of_court</code></td><td>KOC V1 vs V2 pairing service</td><td>KOC, Team KOC</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+         SECTION 3: KNOWN BUGS
+    ═══════════════════════════════════════ -->
+    <div id="known-bugs" class="prd-card">
+      <div class="prd-card-header">
+        <div class="prd-card-icon" style="background:#FDEDEC">🐛</div>
+        <div>
+          <h2>Known Bugs — Test Against These</h2>
+          <p>Active defects found in code review. Scenarios referencing these include a warning note.</p>
+        </div>
+      </div>
+      <div class="prd-card-body">
+        <div class="bug-block">
+          <div class="bug-block-header">
+            <div class="bug-id">RC-1</div>
+            <strong>Standings fetched by points instead of rank — wrong Mexicano pairings on ties</strong>
+          </div>
+          <div class="bug-block-body">
+            <p><strong>File:</strong> <code>event-tournament-v3/index.ts</code> · Line 257</p>
+            <p><strong>Root Cause:</strong> <code>.order('points', {ascending: false})</code> — two players with equal points but different tiebreaker ranks produce incorrect next-round pairings.</p>
+            <p><strong>Fix:</strong> Replace with <code>.order('rank', {ascending: true})</code></p>
+            <p><strong>Affected formats:</strong> Classic Mexicano, Team Mexicano</p>
+          </div>
+        </div>
+        <div class="bug-block">
+          <div class="bug-block-header">
+            <div class="bug-id">RC-2</div>
+            <strong>Future rounds deleted before completeness check — premature round wipe</strong>
+          </div>
+          <div class="bug-block-body">
+            <p><strong>File:</strong> <code>event-tournament-v3/index.ts</code> · Lines 228–234</p>
+            <p><strong>Root Cause:</strong> DELETE fires before checking if all matches in the current round are complete. If only one match is submitted, future rounds are wiped prematurely.</p>
+            <p><strong>Fix:</strong> Move DELETE inside the <code>if (isComplete)</code> block</p>
+            <p><strong>Affected formats:</strong> Classic Mexicano, Team Mexicano</p>
+          </div>
+        </div>
+        <div class="bug-block">
+          <div class="bug-block-header">
+            <div class="bug-id">RC-3</div>
+            <strong>Score stored as sets won regardless of scoring mode — wrong standings in points mode</strong>
+          </div>
+          <div class="bug-block-body">
+            <p><strong>File:</strong> <code>event-tournament-v3/index.ts</code> · Lines 854–855</p>
+            <p><strong>Root Cause:</strong> <code>storedTeam1Score = team1SetsWon</code> always — even when match is in points mode (not multi-set).</p>
+            <p><strong>Fix:</strong> <code>isMultiSet ? team1SetsWon : team1Score</code></p>
+            <p><strong>Affected formats:</strong> All formats using KOC score handler</p>
+          </div>
+        </div>
+        <div class="bug-block">
+          <div class="bug-block-header">
+            <div class="bug-id">RC-4</div>
+            <strong>KOC standings fetch missing rank ordering — potential wrong court assignments</strong>
+          </div>
+          <div class="bug-block-body">
+            <p><strong>File:</strong> <code>event-tournament-v3/index.ts</code> · Lines 474–478</p>
+            <p><strong>Root Cause:</strong> KOC standings fetch does not include <code>.order('rank', {ascending: true})</code>, same class of bug as RC-1.</p>
+            <p><strong>Fix:</strong> Add <code>.order('rank', {ascending: true})</code> to standings query</p>
+            <p><strong>Affected formats:</strong> King of Courts, Team King of Courts</p>
+          </div>
+        </div>
+        <div class="bug-block">
+          <div class="bug-block-header">
+            <div class="bug-id">RC-5</div>
+            <strong>No partner/matchup history check in Mexicano pairing — repeats allowed</strong>
+          </div>
+          <div class="bug-block-body">
+            <p><strong>File:</strong> <code>MexicanoTournamentService.ts</code> · Lines 1123–1160 (<code>createMatchesFromStandingsStatic</code>)</p>
+            <p><strong>Root Cause:</strong> Always applies rank 1+3 vs 2+4 formula with no check against partner or matchup history.</p>
+            <p><strong>Fix:</strong> Try 3 pairing configurations per group of 4, pick the first that avoids last-round partner and repeated matchup.</p>
+            <p><strong>Affected formats:</strong> Classic Mexicano, Team Mexicano</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+         SECTION 4: COVERAGE MATRIX
+    ═══════════════════════════════════════ -->
+    <div id="coverage" class="prd-card">
+      <div class="prd-card-header">
+        <div class="prd-card-icon" style="background:#F5EEF8">📊</div>
+        <div>
+          <h2>Coverage Matrix</h2>
+          <p>Which test categories apply per tournament format</p>
+        </div>
+      </div>
+      <div class="prd-card-body" style="padding:0; overflow-x:auto;">
+        <table class="cov-table">
+          <thead>
+            <tr>
+              <th style="min-width:140px;">Format</th>
+              <th>Creation</th>
+              <th>Sit-outs</th>
+              <th>Dynamic Rounds</th>
+              <th>Bracket</th>
+              <th>Court Rotation</th>
+              <th>Fixed Partners</th>
+              <th>Score Edit</th>
+              <th>Add Round</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Americano</strong></td>
+              <td class="check">✓</td><td class="cross">—</td><td class="cross">—</td>
+              <td class="cross">—</td><td class="cross">—</td><td class="cross">—</td>
+              <td class="check">✓</td><td class="check">✓</td>
+            </tr>
+            <tr>
+              <td><strong>Team Americano</strong></td>
+              <td class="check">✓</td><td class="cross">—</td><td class="cross">—</td>
+              <td class="cross">—</td><td class="cross">—</td><td class="check">✓</td>
+              <td class="check">✓</td><td class="check">✓</td>
+            </tr>
+            <tr>
+              <td><strong>Classic Mexicano</strong></td>
+              <td class="check">✓</td><td class="check">✓</td><td class="check">✓</td>
+              <td class="cross">—</td><td class="cross">—</td><td class="cross">—</td>
+              <td class="check">✓</td><td class="cross">—</td>
+            </tr>
+            <tr>
+              <td><strong>Team Mexicano</strong></td>
+              <td class="check">✓</td><td class="check">✓</td><td class="check">✓</td>
+              <td class="cross">—</td><td class="cross">—</td><td class="check">✓</td>
+              <td class="check">✓</td><td class="cross">—</td>
+            </tr>
+            <tr>
+              <td><strong>King of Courts</strong></td>
+              <td class="check">✓</td><td class="cross">—</td><td class="check">✓</td>
+              <td class="cross">—</td><td class="check">✓</td><td class="cross">—</td>
+              <td class="cross">—</td><td class="cross">—</td>
+            </tr>
+            <tr>
+              <td><strong>Team KOC</strong></td>
+              <td class="check">✓</td><td class="cross">—</td><td class="check">✓</td>
+              <td class="cross">—</td><td class="check">✓</td><td class="check">✓</td>
+              <td class="cross">—</td><td class="cross">—</td>
+            </tr>
+            <tr>
+              <td><strong>Round Robin</strong></td>
+              <td class="check">✓</td><td class="cross">—</td><td class="cross">—</td>
+              <td class="cross">—</td><td class="cross">—</td><td class="check">✓</td>
+              <td class="check">✓</td><td class="cross">—</td>
+            </tr>
+            <tr>
+              <td><strong>Knockout</strong></td>
+              <td class="check">✓</td><td class="cross">—</td><td class="cross">—</td>
+              <td class="check">✓</td><td class="cross">—</td><td class="check">✓</td>
+              <td class="cross">—</td><td class="cross">—</td>
+            </tr>
+            <tr>
+              <td><strong>RR + Knockout</strong></td>
+              <td class="check">✓</td><td class="cross">—</td><td class="cross">—</td>
+              <td class="check">✓</td><td class="cross">—</td><td class="check">✓</td>
+              <td class="check">✓</td><td class="cross">—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+         SECTION 5: FORMAT SUMMARY TABLE
+    ═══════════════════════════════════════ -->
+    <div id="formats" class="prd-card">
+      <div class="prd-card-header">
+        <div class="prd-card-icon" style="background:#EAF7F1">🗂️</div>
         <div>
           <h2>Tournament Formats At a Glance</h2>
-          <p>Key behavioral differences per format — critical for QA scenario design</p>
+          <p>Key behavioral differences — critical context for all scenarios below</p>
         </div>
       </div>
       <div style="overflow-x:auto;">
         <table>
           <thead>
             <tr>
-              <th>Format</th>
-              <th>Engine</th>
-              <th>Partners</th>
-              <th>Sit-outs</th>
-              <th>Pairing Logic</th>
-              <th>Rounds</th>
-              <th>Min Players</th>
+              <th>Format</th><th>Engine</th><th>Partners</th><th>Sit-outs</th>
+              <th>Pairing Logic</th><th>Round Generation</th><th>Typical Setup</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td><strong>Americano</strong></td>
               <td><span class="badge badge-green">v3 local</span></td>
-              <td>Rotate</td>
+              <td>Rotate every round</td>
               <td class="cross">✗</td>
               <td>Random per court</td>
-              <td>Fixed + add-on</td>
-              <td>4</td>
+              <td>All upfront + add-on</td>
+              <td>16 players, 4 courts</td>
             </tr>
             <tr>
               <td><strong>Team Americano</strong></td>
               <td><span class="badge badge-green">v3 local</span></td>
-              <td>Fixed teams</td>
+              <td>Fixed (same 2 always)</td>
               <td class="cross">✗</td>
               <td>Random teams per court</td>
-              <td>Fixed + add-on</td>
-              <td>4 (2 teams)</td>
+              <td>All upfront + add-on</td>
+              <td>16 players (8 teams), 4 courts</td>
             </tr>
             <tr>
               <td><strong>Classic Mexicano</strong></td>
               <td><span class="badge badge-green">v3 local</span></td>
-              <td>Rotate</td>
+              <td>Rotate every round</td>
               <td class="check">✓</td>
-              <td>Standings-based (1+3 vs 2+4)</td>
-              <td>Dynamic (regenerate)</td>
-              <td>4</td>
+              <td>Standings: rank 1+3 vs 2+4</td>
+              <td>Regenerated per score</td>
+              <td>13–17 players, 3–4 courts</td>
             </tr>
             <tr>
               <td><strong>Team Mexicano</strong></td>
               <td><span class="badge badge-green">v3 local</span></td>
-              <td>Fixed teams</td>
+              <td>Fixed (same 2 always)</td>
               <td class="check">✓</td>
-              <td>Standings-based per team</td>
-              <td>Dynamic (regenerate)</td>
-              <td>4 (2 teams)</td>
+              <td>Standings: team rank 1+3 vs 2+4</td>
+              <td>Regenerated per score</td>
+              <td>12–16 players (6–8 teams), 3–4 courts</td>
             </tr>
             <tr>
               <td><strong>King of Courts</strong></td>
               <td><span class="badge badge-orange">v3 KOC</span></td>
-              <td>Rotate (per round)</td>
+              <td>Rotate within court</td>
               <td class="cross">✗</td>
-              <td>Random within court, then promote/relegate</td>
-              <td>Dynamic (next only)</td>
-              <td>4 × courts</td>
+              <td>Random within court → promote/relegate</td>
+              <td>Next round only</td>
+              <td>12 players, 3 courts (exactly 4×courts)</td>
             </tr>
             <tr>
               <td><strong>Team King of Courts</strong></td>
               <td><span class="badge badge-orange">v3 KOC</span></td>
-              <td>Fixed teams</td>
+              <td>Fixed teams rotate courts</td>
               <td class="cross">✗</td>
               <td>Court rotation on result</td>
-              <td>Dynamic (next only)</td>
-              <td>4 × courts (2/court)</td>
+              <td>Next round only</td>
+              <td>12 players (6 teams), 3 courts</td>
             </tr>
             <tr>
               <td><strong>Round Robin</strong></td>
               <td><span class="badge badge-purple">Challonge</span></td>
               <td>Fixed teams</td>
               <td>Via bye</td>
-              <td>Every team plays all others</td>
+              <td>All-vs-all</td>
               <td>All upfront</td>
-              <td>2 teams</td>
+              <td>6–12 teams</td>
             </tr>
             <tr>
               <td><strong>Knockout</strong></td>
@@ -399,16 +604,16 @@
               <td>Via bye</td>
               <td>Seeded bracket</td>
               <td>All upfront</td>
-              <td>2 teams</td>
+              <td>8–16 teams</td>
             </tr>
             <tr>
               <td><strong>RR + Knockout</strong></td>
               <td><span class="badge badge-purple">Challonge</span></td>
               <td>Fixed teams</td>
               <td>Via bye</td>
-              <td>RR seeding → KO bracket</td>
+              <td>RR phase → KO seeding</td>
               <td>2-phase</td>
-              <td>2 teams</td>
+              <td>8–16 teams, top 4–8 advance</td>
             </tr>
           </tbody>
         </table>
@@ -416,2174 +621,1924 @@
     </div>
 
 
-    <!-- ════════════════════════════════
+    <!-- ═══════════════════════════════════════
          AMERICANO
-    ════════════════════════════════ -->
+    ═══════════════════════════════════════ -->
     <div id="americano" class="section-header">
       <div class="section-icon" style="background:#E9F9F1">🎾</div>
       <div>
         <div class="section-title">Americano</div>
-        <div class="section-sub">Individual players · Random rotating partners · All players every round</div>
+        <div class="section-sub">Individual players · Random rotating partners · No sit-outs · Typical: 16 players, 4 courts</div>
       </div>
       <div class="section-badge"><span class="badge badge-green">7 scenarios</span></div>
     </div>
 
-    <!-- AME-001 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">AME-001</div>
-        <div class="scenario-title">Create Americano tournament with minimum 4 players</div>
-        <span class="badge badge-green scenario-type">Happy Path · Setup</span>
+        <div class="scenario-title">Create Americano with 16 players across 4 courts</div>
+        <span class="badge badge-green">Happy Path · Setup</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>Organizer is logged in and has created an event</li>
-          <li>Event has at least 1 court</li>
-          <li>At least 4 participants registered to the event</li>
+          <li>Organizer is logged in and has an active event</li>
+          <li>Event has 4 courts registered</li>
+          <li>16 participants confirmed on the event</li>
           <li>No active tournament on this event</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
-          <li>Organizer navigates to event → Tournament tab → "Create Tournament"</li>
-          <li>Selects tournament type: <strong>Americano</strong></li>
-          <li>Selects exactly 4 players from participant list</li>
-          <li>Selects 1 court</li>
-          <li>Sets maxPoints to 16</li>
-          <li>Taps "Generate Tournament"</li>
+          <li>Navigate to event → Tournament tab → "Create Tournament"</li>
+          <li>Select tournament type: <strong>Americano</strong></li>
+          <li>Select all 16 players from participant list</li>
+          <li>Select 4 courts, set maxPoints to 16</li>
+          <li>Tap "Generate Tournament"</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>Tournament is created with status <code>pending</code></li>
-          <li>Round 1 contains exactly 1 match (4 players → 1 court)</li>
-          <li>Match has team1Player1, team1Player2, team2Player1, team2Player2 all populated</li>
-          <li>Each of the 4 players appears in exactly one team slot</li>
-          <li>Match score is null, status is <code>pending</code></li>
-          <li>Match maxPoints = 16</li>
-          <li>Standings table shows 4 entries, all with 0 points</li>
+          <li>Tournament created with type <code>americano</code>, status <code>pending</code></li>
+          <li>Round 1 contains exactly 4 matches (4 courts × 1 match each)</li>
+          <li>All 16 players distributed across 4 matches — each player in exactly one team slot</li>
+          <li>Each match has team1Player1, team1Player2, team2Player1, team2Player2 populated</li>
+          <li>Match scores are null, status <code>pending</code></li>
+          <li>All matches have maxPoints = 16</li>
+          <li>Standings table shows 16 entries, all at 0 points, 0 wins, 0 losses</li>
+          <li>No <code>usersSittingOutInRound</code> entries exist</li>
         </ul></div>
-
         <h4>Edge Cases</h4>
         <div class="edge-cases"><ul>
-          <li>3 players selected → creation fails with "Minimum 4 players required" error</li>
-          <li>0 courts selected → creation fails with court validation error</li>
-          <li>8 players, 2 courts → 2 matches created in round 1, all 8 players play</li>
+          <li>20 players, 4 courts (not divisible by 4 per court) → creation fails with player count validation</li>
+          <li>12 players, 3 courts → 3 matches, all 12 play — valid</li>
+          <li>0 courts selected → creation fails</li>
         </ul></div>
       </div>
     </div>
 
-    <!-- AME-002 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">AME-002</div>
-        <div class="scenario-title">Submit score and verify standings update</div>
-        <span class="badge badge-green scenario-type">Happy Path · Scoring</span>
+        <div class="scenario-title">Submit score on one court — standings update correctly</div>
+        <span class="badge badge-green">Happy Path · Scoring</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>Americano tournament active, round 1 has 1 match (4 players)</li>
-          <li>Match is in <code>pending</code> state</li>
+          <li>Americano with 16 players, 4 courts, round 1 active (4 matches pending)</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
-          <li>Organizer opens round 1 match</li>
-          <li>Enters Team 1 score: 16, Team 2 score: 9</li>
-          <li>Taps "Submit Score"</li>
-          <li>Navigates to Standings tab</li>
+          <li>Open match on Court 1: Team A (Player 1 + Player 2) vs Team B (Player 3 + Player 4)</li>
+          <li>Enter Team A score: 16, Team B score: 9</li>
+          <li>Tap "Submit Score"</li>
+          <li>Navigate to Standings tab</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>Match status changes to <code>completed</code></li>
-          <li>Team 1 players each have <code>wins = 1</code>, <code>points = 2</code> (or configured win value)</li>
-          <li>Team 2 players each have <code>losses = 1</code>, <code>points = 0</code></li>
-          <li>Team 1 players have <code>pointsFor = 16</code>, <code>pointsAgainst = 9</code></li>
-          <li>Team 2 players have <code>pointsFor = 9</code>, <code>pointsAgainst = 16</code></li>
-          <li>Team 1 players ranked above Team 2 players in standings</li>
-          <li>Round 1 shows as completed in UI</li>
+          <li>Court 1 match status changes to <code>completed</code></li>
+          <li>Players 1 and 2 each: wins=1, points=2 (or configured win value), pointsFor=16, pointsAgainst=9</li>
+          <li>Players 3 and 4 each: losses=1, points=0, pointsFor=9, pointsAgainst=16</li>
+          <li>Players 1 and 2 ranked above 3 and 4 in standings</li>
+          <li>Players on courts 2, 3, 4 still show 0 points (matches still pending)</li>
+          <li>Round 1 shows as "3 of 4 matches remaining"</li>
         </ul></div>
-
         <h4>Edge Cases</h4>
         <div class="edge-cases"><ul>
-          <li>Tied score (8–8) → both teams receive <code>ties = 1</code>, equal standings points</li>
-          <li>Score exceeds maxPoints (e.g., 20–15 when maxPoints=16) → validation error shown</li>
-          <li>Non-organizer submits score → rejected with permission error</li>
+          <li>Tied score (8–8) → both teams receive ties=1; standings points equal; tiebreaker by differential = 0</li>
+          <li>Score exceeds maxPoints (17–5 when maxPoints=16) → validation error</li>
+          <li>Non-organizer submit attempt → 403 / hidden submit button</li>
         </ul></div>
       </div>
     </div>
 
-    <!-- AME-003 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">AME-003</div>
-        <div class="scenario-title">Round 2 uses different pairings from round 1</div>
-        <span class="badge badge-green scenario-type">Happy Path · Rotation</span>
+        <div class="scenario-title">Round 2 auto-generates after all round 1 matches complete</div>
+        <span class="badge badge-green">Happy Path · Rotation</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>Americano with 8 players, 2 courts</li>
-          <li>Round 1 all matches completed</li>
+          <li>Americano with 16 players, 4 courts, all 4 round 1 matches pending</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
-          <li>Complete all round 1 scores</li>
-          <li>System auto-generates round 2</li>
-          <li>Compare round 2 match player assignments to round 1</li>
+          <li>Submit scores for all 4 round 1 matches</li>
+          <li>Observe whether round 2 is generated</li>
+          <li>Compare round 2 player assignments to round 1</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>Round 2 is generated automatically after all round 1 matches completed</li>
-          <li>Round 2 still contains 2 matches (all 8 players participate)</li>
-          <li>At least one court has a different 4-player combination than round 1</li>
+          <li>Round 2 appears automatically after the 4th round 1 score is submitted</li>
+          <li>Round 2 has exactly 4 matches (all 16 players still participate)</li>
           <li>No player appears in more than one match in round 2</li>
-          <li>All 8 players are assigned to exactly one match in round 2</li>
-        </ul></div>
-
-        <h4>Edge Cases</h4>
-        <div class="edge-cases"><ul>
-          <li>With exactly 4 players, round 2 has same 4 players but potentially different team splits</li>
-          <li>Pairing is random — system does NOT guarantee different partners (no history check for Americano)</li>
+          <li>All 16 players assigned across 4 matches</li>
+          <li>At least some courts have different 4-player groupings vs round 1 (pairing is random)</li>
+          <li>Round 1 remains visible in history</li>
         </ul></div>
       </div>
     </div>
 
-    <!-- AME-004 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">AME-004</div>
-        <div class="scenario-title">No sit-outs: all players participate in every round</div>
-        <span class="badge badge-blue scenario-type">Invariant · Sit-out</span>
+        <div class="scenario-title">All players must play every round — no sit-outs ever</div>
+        <span class="badge badge-blue">Invariant</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>Americano with 5 players, 1 court (odd player count)</li>
+          <li>Any Americano tournament across multiple rounds</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
-          <li>Attempt to create tournament with 5 players and 1 court</li>
-          <li>Observe whether tournament is created or rejected</li>
-          <li>If accepted, check round 1 match assignments</li>
+          <li>Complete 5 rounds of an Americano tournament</li>
+          <li>Inspect every round's match assignments</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>Tournament creation fails OR requires player count = 4 × courts</li>
-          <li>If 8 players + 2 courts: all 8 players assigned, no sit-outs</li>
-          <li>Unlike Mexicano, Americano does NOT generate sit-out assignments</li>
-          <li><code>usersSittingOutInRound</code> is empty/null for all rounds</li>
+          <li>Every player appears in exactly 1 match in every round, across all rounds</li>
+          <li><code>usersSittingOutInRound</code> is always empty for Americano</li>
+          <li>Total match slots per round = number of players (no idle players)</li>
         </ul></div>
       </div>
     </div>
 
-    <!-- AME-005 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">AME-005</div>
-        <div class="scenario-title">Final standings tiebreaker by point differential</div>
-        <span class="badge badge-orange scenario-type">Edge Case · Standings</span>
+        <div class="scenario-title">Final standings: point differential breaks equal win counts</div>
+        <span class="badge badge-orange">Edge Case · Tiebreaker</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>Americano with 4 players, 3 rounds completed</li>
-          <li>Players A and B each have 2 wins, 1 loss</li>
+          <li>Americano, 4 rounds completed. Players A and B both have 2 wins, 2 losses (equal points).</li>
+          <li>Player A: pointsFor=58, pointsAgainst=42 (+16 differential)</li>
+          <li>Player B: pointsFor=52, pointsAgainst=46 (+6 differential)</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
-          <li>Complete all rounds so A and B have equal W/L/points</li>
-          <li>Ensure player A has pointsFor=42, pointsAgainst=30 (+12 differential)</li>
-          <li>Ensure player B has pointsFor=38, pointsAgainst=30 (+8 differential)</li>
+          <li>Complete all rounds with the above scores</li>
           <li>Check standings order</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>Player A ranked above Player B despite equal win counts</li>
-          <li>Rank assigned by: 1) total points, 2) pointsFor−pointsAgainst differential</li>
-          <li>Standings display shows the differential value</li>
-          <li>Rank column updates correctly after final score submitted</li>
+          <li>Player A ranked above Player B (better differential)</li>
+          <li>Tiebreaker applied: 1) total standings points, 2) pointsFor − pointsAgainst</li>
+          <li>Differential value shown in standings UI</li>
+          <li>Rank column updated correctly after final score</li>
         </ul></div>
       </div>
     </div>
 
-    <!-- AME-006 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">AME-006</div>
-        <div class="scenario-title">Add extra round (feature-flagged)</div>
-        <span class="badge badge-purple scenario-type">Feature Flag · Add Round</span>
+        <div class="scenario-title">Add extra round (requires addMoreRound feature flag)</div>
+        <span class="badge badge-purple">Feature Flag</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>Americano tournament with 2 rounds completed</li>
-          <li>PostHog feature flag <code>addMoreRound</code> is enabled for this user/event</li>
+          <li>Americano with 3 rounds completed</li>
+          <li>PostHog flag <code>addMoreRound</code> enabled for organizer</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
-          <li>Navigate to tournament rounds view</li>
-          <li>Tap "Add Round" button (should be visible)</li>
+          <li>Navigate to rounds view</li>
+          <li>Tap "Add Round" button</li>
           <li>Confirm action</li>
           <li>Observe new round generated</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>"Add Round" button visible only when <code>addMoreRound</code> flag enabled</li>
-          <li>New round 3 created with all players assigned</li>
-          <li>Round 3 uses fresh random pairings</li>
-          <li>Standings persist from previous rounds unchanged</li>
+          <li>"Add Round" button is visible only when flag is enabled</li>
+          <li>Round 4 created with fresh random pairings across all 16 players</li>
+          <li>Standings from rounds 1–3 preserved and unchanged</li>
+          <li>New round 4 matches show as <code>pending</code></li>
         </ul></div>
-
         <h4>Edge Cases</h4>
         <div class="edge-cases"><ul>
-          <li>Feature flag disabled → "Add Round" button not shown</li>
-          <li>Partial round completion → Add Round allowed only after current round complete</li>
+          <li>Flag disabled → "Add Round" button not shown at all</li>
+          <li>Current round not fully complete → "Add Round" disabled until current round finishes</li>
         </ul></div>
       </div>
     </div>
 
-    <!-- AME-007 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">AME-007</div>
-        <div class="scenario-title">Score correction before next round generates</div>
-        <span class="badge badge-orange scenario-type">Edge Case · Score Edit</span>
+        <div class="scenario-title">Score correction accepted while other matches in round still pending</div>
+        <span class="badge badge-orange">Edge Case · Score Edit</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>Americano round 1 has 2 matches, match 1 completed, match 2 pending</li>
+          <li>16 players, 4 courts, round 1: match on court 1 completed (16–9), courts 2–4 still pending</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
-          <li>Organizer opens completed match 1</li>
+          <li>Organizer reopens court 1 completed match</li>
           <li>Edits score from 16–9 to 14–11</li>
           <li>Submits corrected score</li>
           <li>Checks standings</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>Score correction accepted (round still in progress, next round not yet generated)</li>
-          <li>Standings recalculate: Team 1 pointsFor updated to 14, pointsAgainst to 11</li>
+          <li>Correction accepted (next round not yet generated — safe to edit)</li>
+          <li>Standings update: winning team's pointsFor changes from 16 to 14</li>
+          <li>Win/loss record unchanged (still a win for the same team)</li>
           <li>Match status remains <code>completed</code></li>
-          <li>W/L/T record unchanged (still a win)</li>
         </ul></div>
       </div>
     </div>
 
 
-    <!-- ════════════════════════════════
+    <!-- ═══════════════════════════════════════
          TEAM AMERICANO
-    ════════════════════════════════ -->
+    ═══════════════════════════════════════ -->
     <div id="team-americano" class="section-header">
       <div class="section-icon" style="background:#EBF5FB">🤝</div>
       <div>
         <div class="section-title">Team Americano</div>
-        <div class="section-sub">Fixed 2-player teams · Rotating opponents · No sit-outs</div>
+        <div class="section-sub">Fixed 2-player teams · Rotating opponents · No sit-outs · Typical: 16 players (8 teams), 4 courts</div>
       </div>
       <div class="section-badge"><span class="badge badge-blue">5 scenarios</span></div>
     </div>
 
-    <!-- TAME-001 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">TAME-001</div>
-        <div class="scenario-title">Create Team Americano and verify team composition locked</div>
-        <span class="badge badge-green scenario-type">Happy Path · Setup</span>
+        <div class="scenario-title">Create Team Americano with 8 teams across 4 courts</div>
+        <span class="badge badge-green">Happy Path · Setup</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>Event with 4+ participants and 1+ courts</li>
-          <li>Organizer logged in</li>
+          <li>Event with 16 participants and 4 courts</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
           <li>Select tournament type: <strong>Team Americano</strong></li>
-          <li>Form 2 teams: Team A (Player 1 + Player 2), Team B (Player 3 + Player 4)</li>
-          <li>Select 1 court, set maxPoints = 12</li>
+          <li>Form 8 teams of 2 players each</li>
+          <li>Select 4 courts, set maxPoints = 16</li>
           <li>Generate tournament</li>
-          <li>Complete round 1</li>
-          <li>Observe round 2 match composition</li>
+          <li>Complete round 1 on all courts</li>
+          <li>Observe round 2 partner assignments</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>Round 1: Team A vs Team B on court 1</li>
-          <li>Round 2: Team A players appear together in same team slot</li>
-          <li>Team B players appear together in same team slot in every round</li>
-          <li>Partners never switch within same tournament</li>
-          <li>Standings show team names (not individual players)</li>
+          <li>Round 1: 4 matches, 2 teams per court — all 8 teams assigned</li>
+          <li>Round 2: same 8 teams reassigned — with opponent randomisation</li>
+          <li>Player pairs remain identical in every round (Team 1 = Player A + Player B always)</li>
+          <li>Standings display team names (both players visible under same row)</li>
+          <li>No team plays itself</li>
         </ul></div>
       </div>
     </div>
 
-    <!-- TAME-002 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">TAME-002</div>
-        <div class="scenario-title">4 teams, 2 courts — all teams play simultaneously in round 1</div>
-        <span class="badge badge-green scenario-type">Happy Path · Scaling</span>
+        <div class="scenario-title">Team partner composition is immutable across all rounds</div>
+        <span class="badge badge-blue">Invariant · Fixed Partners</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>Event with 8 players, 2 courts</li>
-          <li>4 teams of 2 formed</li>
+          <li>Team Americano, 6 rounds completed</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
-          <li>Create Team Americano with 4 teams, 2 courts</li>
-          <li>Observe round 1 matches</li>
+          <li>Inspect every round's match records</li>
+          <li>Confirm team slot composition per round</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>Round 1 has exactly 2 matches (2 courts)</li>
-          <li>All 4 teams assigned across both matches</li>
-          <li>No team appears in more than one match per round</li>
-          <li>No court has the same team twice</li>
+          <li>Every team has identical player1 and player2 across all 6 rounds</li>
+          <li>No round has a team slot split between different players</li>
+          <li>Contrast: Americano (individual) would have rotated partners in round 2+</li>
         </ul></div>
       </div>
     </div>
 
-    <!-- TAME-003 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">TAME-003</div>
-        <div class="scenario-title">Team standings accumulate correctly across multiple rounds</div>
-        <span class="badge badge-green scenario-type">Happy Path · Standings</span>
+        <div class="scenario-title">Standings accumulate per team across multiple rounds</div>
+        <span class="badge badge-green">Happy Path · Standings</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>Team Americano with 2 teams, 1 court, 3 rounds</li>
+          <li>Team Americano, 8 teams, 4 courts, 3 rounds completed</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
-          <li>Round 1: Team A wins 12–7. Submit.</li>
-          <li>Round 2: Team B wins 12–5. Submit.</li>
-          <li>Round 3: Team A wins 12–10. Submit.</li>
-          <li>Check final standings.</li>
+          <li>Complete 3 full rounds</li>
+          <li>Check final standings</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>Team A: wins=2, losses=1, pointsFor=29, pointsAgainst=29</li>
-          <li>Team B: wins=1, losses=2, pointsFor=24, pointsAgainst=29</li>
-          <li>Wait — pointsFor/against: Team A: 12+5+12=29 for, 7+12+10=29 against. Team A ranked higher due to 2 wins</li>
-          <li>Tiebreaker applies if wins are equal: point differential used</li>
-          <li>Both players on Team A share identical standings row</li>
+          <li>Each team has a cumulative win/loss count across all 3 rounds</li>
+          <li>Both players on a team always share the same standings row</li>
+          <li>Standings sorted: most wins first, then point differential tiebreaker</li>
+          <li>No individual player standings — strictly team-level rows</li>
         </ul></div>
       </div>
     </div>
 
-    <!-- TAME-004 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">TAME-004</div>
-        <div class="scenario-title">Odd team count fails tournament creation</div>
-        <span class="badge badge-red scenario-type">Error · Validation</span>
+        <div class="scenario-title">Odd number of teams: one team sits out per round</div>
+        <span class="badge badge-orange">Edge Case · Scheduling</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>Event with 6 players, 1 court</li>
+          <li>14 players → 7 teams, 3 courts (odd team count)</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
-          <li>Create Team Americano with 3 teams, 1 court</li>
+          <li>Create Team Americano with 7 teams, 3 courts</li>
+          <li>Observe round 1 assignments</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>With 3 teams and 1 court: one team sits out per round — system must handle or reject</li>
-          <li>With 3 teams and 1 court, tournament creates with 1 match per round (2 teams play, 1 waits)</li>
-          <li>Waiting team has no match that round (sit-out-like behavior for teams)</li>
+          <li>Round 1: 3 matches (6 teams play), 1 team idle that round</li>
+          <li>Round 2: the idle team plays; rotation ensures fair distribution of idle turns</li>
+          <li>Idle team receives 0 points for the round they sit out</li>
         </ul></div>
       </div>
     </div>
 
-    <!-- TAME-005 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">TAME-005</div>
-        <div class="scenario-title">Add round available for Team Americano (feature-flagged)</div>
-        <span class="badge badge-purple scenario-type">Feature Flag</span>
+        <div class="scenario-title">Add Round extends tournament without resetting standings</div>
+        <span class="badge badge-purple">Feature Flag · Add Round</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>Team Americano tournament, flag <code>addMoreRound</code> enabled</li>
+          <li>Team Americano, 4 rounds complete, flag <code>addMoreRound</code> enabled</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
-          <li>Complete all current rounds</li>
-          <li>Tap "Add Round"</li>
+          <li>Tap "Add Round" after round 4 completes</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>New round generated with fresh random team matchups</li>
-          <li>Teams retain their fixed player pairs</li>
-          <li>Existing standings preserved and add to with new round</li>
+          <li>Round 5 created, all teams assigned with new random opponents</li>
+          <li>Team compositions intact (same 2 players per team)</li>
+          <li>Standings from rounds 1–4 carry forward unchanged</li>
         </ul></div>
       </div>
     </div>
 
 
-    <!-- ════════════════════════════════
+    <!-- ═══════════════════════════════════════
          CLASSIC MEXICANO
-    ════════════════════════════════ -->
+    ═══════════════════════════════════════ -->
     <div id="mexicano" class="section-header">
       <div class="section-icon" style="background:#EAF7F1">🔄</div>
       <div>
         <div class="section-title">Classic Mexicano</div>
-        <div class="section-sub">Individual players · Standings-based pairing · Dynamic future rounds</div>
+        <div class="section-sub">Individual players · Standings-based pairing · Dynamic future rounds · Typical: 13–17 players</div>
       </div>
       <div class="section-badge"><span class="badge badge-green">9 scenarios</span></div>
     </div>
 
-    <!-- MEX-001 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">MEX-001</div>
-        <div class="scenario-title">Create Mexicano with even player count</div>
-        <span class="badge badge-green scenario-type">Happy Path · Setup</span>
+        <div class="scenario-title">Create Mexicano with 16 players, 4 courts</div>
+        <span class="badge badge-green">Happy Path · Setup</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>Event with 8 players, 2 courts</li>
+          <li>Event with 16 confirmed participants, 4 courts</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
           <li>Select tournament type: <strong>Mexicano</strong></li>
-          <li>Select 8 players, 2 courts</li>
+          <li>Select 16 players, 4 courts</li>
           <li>Generate tournament</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>Round 1 has 2 matches (all 8 players assigned)</li>
-          <li>No sit-outs in round 1 (even count)</li>
-          <li>Each player assigned to exactly 1 team in exactly 1 match</li>
-          <li>Round 2+ not generated yet (pending score submission)</li>
-          <li>Standings table created with 8 entries, all at 0 points</li>
+          <li>Round 1 created with 4 matches (all 16 players, no sit-outs)</li>
+          <li>Round 1 pairings are random (no standings yet to base them on)</li>
+          <li>Rounds 2+ pre-generated as placeholders but NOT yet assigned (assignments pending score submission)</li>
+          <li>Standings table: 16 entries at 0 points</li>
         </ul></div>
       </div>
     </div>
 
-    <!-- MEX-002 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">MEX-002</div>
-        <div class="scenario-title">Future rounds regenerate on every score submission</div>
-        <span class="badge badge-green scenario-type">Happy Path · Core Mechanic</span>
+        <div class="scenario-title">Completing a round triggers regeneration of all future rounds</div>
+        <span class="badge badge-green">Happy Path · Core Mechanic</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>Mexicano with 4 players, 1 court, round 1 pending</li>
-          <li>Pre-generated rounds 2 and 3 exist from tournament creation</li>
+          <li>Mexicano, 16 players, 4 courts, round 1 in progress</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
-          <li>Submit score for round 1 match</li>
-          <li>Observe round 2 match assignments</li>
-          <li>Compare round 2 pairings to what they were before score submission</li>
+          <li>Submit all 4 round 1 match scores</li>
+          <li>Note the pre-existing round 2 placeholder assignments</li>
+          <li>Observe round 2 after the last round 1 score is submitted</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>Rounds 2+ are deleted and regenerated based on updated standings after round 1 score</li>
-          <li>Round 2 pairs ranked player 1 with ranked player 3 vs ranked player 2 with ranked player 4</li>
-          <li>Old round 2 data no longer exists</li>
-          <li>New round 2 reflects current standings ranking order</li>
+          <li>Old round 2 placeholder data deleted and regenerated</li>
+          <li>New round 2 uses current standings rankings for pairing</li>
+          <li>Rounds 3+ also regenerated based on same updated standings</li>
+          <li>Regeneration only fires once all 4 round 1 matches are complete</li>
+          <li>Submitting only 3 of 4 round 1 scores does NOT trigger regeneration</li>
         </ul></div>
-
-        <div class="bug-note">
-          <strong>⚠ Known Bug (RC-2):</strong> The database DELETE for future rounds fires <em>before</em> the completeness check. Fix: move delete inside the <code>if (isComplete)</code> block. Until patched, verify round deletion only triggers after all matches in current round are complete.
-        </div>
+        <div class="bug-note"><strong>⚠ RC-2:</strong> Future round DELETE currently fires before completeness check — may wipe rounds prematurely on partial submission. Fix: move DELETE inside the <code>if (isComplete)</code> block.</div>
       </div>
     </div>
 
-    <!-- MEX-003 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">MEX-003</div>
-        <div class="scenario-title">Standings-based pairing: rank 1+3 vs rank 2+4</div>
-        <span class="badge badge-green scenario-type">Happy Path · Pairing Logic</span>
+        <div class="scenario-title">Round 2 pairing: rank 1+3 vs rank 2+4 per group of 4</div>
+        <span class="badge badge-green">Happy Path · Pairing Logic</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>Mexicano with 4 players: A (rank 1), B (rank 2), C (rank 3), D (rank 4)</li>
-          <li>Round 1 complete, standings established</li>
+          <li>Mexicano, 16 players, 4 courts. After round 1, clear ranking established.</li>
+          <li>Top 8 players ranked 1–8, bottom 8 ranked 9–16</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
-          <li>Complete round 1 so clear ranking exists: A(1st) B(2nd) C(3rd) D(4th)</li>
-          <li>Observe round 2 pairing</li>
+          <li>Complete round 1 with distinct score differences to produce clear ranking</li>
+          <li>Observe round 2 pairings on all 4 courts</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>Round 2: Team A+C versus Team B+D (ranks 1+3 vs 2+4)</li>
-          <li>Not: A+B vs C+D (which would be rank 1+2 vs 3+4)</li>
-          <li>With 8 players + 2 courts: Court 1 has ranks 1+3 vs 2+4, Court 2 has ranks 5+7 vs 6+8</li>
+          <li>Court 1 (top group): rank 1 + rank 3 vs rank 2 + rank 4</li>
+          <li>Court 2 (second group): rank 5 + rank 7 vs rank 6 + rank 8</li>
+          <li>Court 3: rank 9 + rank 11 vs rank 10 + rank 12</li>
+          <li>Court 4 (bottom group): rank 13 + rank 15 vs rank 14 + rank 16</li>
+          <li>NOT rank 1+2 vs 3+4 (which would separate top ranked players)</li>
         </ul></div>
-
-        <div class="bug-note">
-          <strong>⚠ Known Bug (RC-1):</strong> Standings fetched with <code>.order('points')</code> instead of <code>.order('rank')</code>. If two players have equal points but different ranks (due to tiebreaker), pairing may be incorrect. Fix: use <code>.order('rank', ascending: true)</code>.
-        </div>
+        <div class="bug-note"><strong>⚠ RC-1:</strong> Standings ordered by <code>points</code> not <code>rank</code> — ties with different tiebreaker ranks may produce wrong pairings. Fix: <code>.order('rank', ascending: true)</code>.</div>
       </div>
     </div>
 
-    <!-- MEX-004 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">MEX-004</div>
-        <div class="scenario-title">Sit-out with odd player count (5 players, 1 court)</div>
-        <span class="badge badge-orange scenario-type">Edge Case · Sit-out</span>
+        <div class="scenario-title">Sit-out rotation with 13 players across 3 courts</div>
+        <span class="badge badge-orange">Edge Case · Sit-out</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>Mexicano with 5 players, 1 court</li>
+          <li>Mexicano with 13 players, 3 courts (13 = 3×4 + 1, so 1 sits out per round)</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
-          <li>Create Mexicano with 5 players, 1 court</li>
-          <li>Observe round 1 match assignments and sit-out</li>
-          <li>Complete round 1</li>
-          <li>Observe round 2 sit-out</li>
+          <li>Create tournament with 13 players, 3 courts</li>
+          <li>Note which player sits out round 1</li>
+          <li>Complete round 1, check round 2 sit-out</li>
+          <li>Complete 13 rounds total</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>Round 1: 4 players in match, 1 player in <code>usersSittingOutInRound</code></li>
-          <li>The sit-out player in round 1 is NOT the sit-out player in round 2</li>
-          <li>No player sits out two consecutive rounds (rotation enforced)</li>
-          <li>Sit-out player receives 0 points for that round (no match)</li>
-          <li>Over 5 rounds, each player sits out exactly 1 round</li>
+          <li>Round 1: exactly 1 player in <code>usersSittingOutInRound</code></li>
+          <li>Round 1 sit-out player is NOT the sit-out in round 2</li>
+          <li>Sit-out assignment rotates — no player sits out two consecutive rounds</li>
+          <li>Sit-out player gets 0 points (no match to win)</li>
+          <li>Over 13 rounds, each of the 13 players sits out exactly once</li>
         </ul></div>
       </div>
     </div>
 
-    <!-- MEX-005 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">MEX-005</div>
-        <div class="scenario-title">Sit-out enforces consecutive-round protection</div>
-        <span class="badge badge-orange scenario-type">Edge Case · Sit-out Rotation</span>
+        <div class="scenario-title">17 players, 4 courts: sit-out is the 17th player each round</div>
+        <span class="badge badge-orange">Edge Case · Odd Count</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>Mexicano with 9 players, 2 courts (1 sits out each round)</li>
-          <li>Player X sat out in round 3</li>
+          <li>Mexicano with 17 players, 4 courts (17 = 4×4 + 1)</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
-          <li>Submit round 3 scores</li>
-          <li>Observe round 4 sit-out assignment</li>
+          <li>Create tournament, complete 4 rounds</li>
+          <li>Track sit-out assignment per round</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>Player X does NOT sit out in round 4 (consecutive sit-out protection)</li>
-          <li>The player who last sat out before X (or with lowest sit-out priority) gets assigned round 4 sit-out</li>
-          <li>Unless only 1 player has never sat out — then that player takes priority for sit-out</li>
+          <li>Each round: 16 players assigned to 4 matches, 1 sits out</li>
+          <li>Sit-out priority: player with most consecutive played rounds, or lowest rank</li>
+          <li>No player sits out twice before all others have sat once</li>
+          <li>Player who just sat out is protected from sitting out next round (unless unavoidable)</li>
         </ul></div>
       </div>
     </div>
 
-    <!-- MEX-006 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">MEX-006</div>
-        <div class="scenario-title">Partner history check prevents same partner in consecutive rounds</div>
-        <span class="badge badge-orange scenario-type">Edge Case · Partner Rotation</span>
+        <div class="scenario-title">Partner history: system attempts to avoid same partner in consecutive rounds</div>
+        <span class="badge badge-orange">Edge Case · Partner Rotation</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>Mexicano with 4 players</li>
-          <li>Round 1: A partners with C, B partners with D</li>
-          <li>Round 2 being generated</li>
+          <li>Mexicano, 16 players. Round 1 complete: Player A partnered with Player C.</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
-          <li>Complete round 1 with A+C vs B+D</li>
-          <li>Observe round 2 pairing</li>
+          <li>Complete round 1 where A and C are partners</li>
+          <li>Observe round 2 — check whether A and C are partners again</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>Round 2 system attempts to avoid A+C and B+D as partner pairs</li>
-          <li>If rankings allow: round 2 pairs A+D vs B+C or A+B vs C+D</li>
-          <li>If only one valid pairing exists, the unavoidable repeat is allowed</li>
-          <li>Match log shows different partner combination from round 1 (when possible)</li>
+          <li>System attempts to assign A a different partner in round 2</li>
+          <li>If rankings allow an alternative, A and C are NOT paired in round 2</li>
+          <li>If no alternative is mathematically possible, repeat is allowed</li>
         </ul></div>
-
-        <div class="bug-note">
-          <strong>⚠ Known Bug (RC-5):</strong> <code>createMatchesFromStandingsStatic()</code> does not check partner history. Always applies 1+3 vs 2+4 regardless of prior partners. Fix pending: try 3 configurations per group, pick first avoiding last-round partner.
-        </div>
+        <div class="bug-note"><strong>⚠ RC-5:</strong> <code>createMatchesFromStandingsStatic()</code> currently has no partner history check. Repeats occur freely. Fix pending: try 3 configurations, pick first that avoids last-round partner.</div>
       </div>
     </div>
 
-    <!-- MEX-007 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">MEX-007</div>
-        <div class="scenario-title">Matchup history: same 4-player group not repeated</div>
-        <span class="badge badge-orange scenario-type">Edge Case · Matchup Dedup</span>
+        <div class="scenario-title">Same 4-player matchup not repeated when avoidable</div>
+        <span class="badge badge-orange">Edge Case · Matchup Dedup</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>Mexicano with 4 players, many rounds</li>
-          <li>At some point the ranking produces A+C vs B+D again after they played round 1</li>
+          <li>Mexicano with 16 players, many rounds played</li>
+          <li>At some point standings would produce court 1 group A+C vs B+D again</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
-          <li>Play enough rounds so same 4-player court group would repeat</li>
-          <li>Observe if system avoids or allows the repeat</li>
+          <li>Play enough rounds so same 4-player court group would mathematically repeat</li>
+          <li>Observe whether system avoids or allows the repeat</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>System attempts to find an alternative pairing that avoids repeating the exact 4-player grouping</li>
-          <li>If no alternative exists (e.g., only 4 players), repeat is allowed</li>
-          <li>Match history visible in match detail (prior meetings shown)</li>
+          <li>System attempts an alternative 4-player grouping before repeating</li>
+          <li>If no alternative exists, the repeat is accepted gracefully</li>
+          <li>Match history shows prior encounter info in match detail</li>
         </ul></div>
-
-        <div class="bug-note">
-          <strong>⚠ Known Bug (RC-5):</strong> Currently no matchup history check implemented. Repeats occur freely. Fix planned.
-        </div>
+        <div class="bug-note"><strong>⚠ RC-5:</strong> Matchup dedup not yet implemented — repeats occur freely. Part of same fix as RC-5 partner history check.</div>
       </div>
     </div>
 
-    <!-- MEX-008 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">MEX-008</div>
-        <div class="scenario-title">Tournament end: final standings locked after end action</div>
-        <span class="badge badge-green scenario-type">Happy Path · Completion</span>
+        <div class="scenario-title">Organizer ends tournament early: standings locked, no new rounds</div>
+        <span class="badge badge-green">Happy Path · Completion</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>Mexicano tournament with several completed rounds</li>
-          <li>Organizer decides to end tournament early or after planned rounds</li>
+          <li>Mexicano, 5 rounds completed, organizer decides to stop</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
-          <li>Organizer taps "End Tournament"</li>
-          <li>Confirms end action</li>
-          <li>Observes standings and match state</li>
+          <li>Tap "End Tournament"</li>
+          <li>Confirm the end action</li>
+          <li>Attempt to submit a score for a pending match in an earlier round</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
           <li>Tournament status transitions to <code>completed</code></li>
-          <li>All pending matches locked — no further scores can be submitted</li>
-          <li>Final standings displayed with trophy icon for rank 1</li>
-          <li>No new rounds can be generated after end</li>
-          <li>Non-organizer cannot invoke end tournament action</li>
+          <li>No further score submissions accepted</li>
+          <li>No new rounds generated</li>
+          <li>Final standings displayed with champion badge for rank 1</li>
+          <li>Non-organizer tap on "End Tournament" → button not shown / 403</li>
         </ul></div>
       </div>
     </div>
 
-    <!-- MEX-009 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">MEX-009</div>
-        <div class="scenario-title">Tournament reset destroys all existing rounds</div>
-        <span class="badge badge-red scenario-type">Destructive · Reset</span>
+        <div class="scenario-title">Tournament reset destroys all rounds and standings</div>
+        <span class="badge badge-red">Destructive · Reset</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>Mexicano tournament with 2 rounds completed</li>
+          <li>Mexicano with 3 rounds completed</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
-          <li>Organizer triggers "Reset Tournament" (type: 'reset')</li>
-          <li>Confirms destructive action</li>
-          <li>Observes tournament state</li>
+          <li>Organizer triggers "Reset Tournament"</li>
+          <li>Confirms destructive action in dialog</li>
+          <li>Observe tournament state</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>All existing matches deleted</li>
-          <li>All standings reset to 0</li>
-          <li>Round 1 regenerated from scratch with fresh random pairings</li>
+          <li>All matches from all 3 rounds deleted</li>
+          <li>All standings reset to 0 points, 0 wins</li>
+          <li>Round 1 regenerated fresh with random pairings</li>
           <li>Tournament status returns to <code>pending</code></li>
-          <li>Reset action requires organizer permission (non-organizer rejected)</li>
+          <li>Confirmation dialog shown before reset executes (destructive action warning)</li>
         </ul></div>
       </div>
     </div>
 
 
-    <!-- ════════════════════════════════
+    <!-- ═══════════════════════════════════════
          TEAM MEXICANO
-    ════════════════════════════════ -->
+    ═══════════════════════════════════════ -->
     <div id="team-mexicano" class="section-header">
       <div class="section-icon" style="background:#EBF5FB">🔁</div>
       <div>
         <div class="section-title">Team Mexicano</div>
-        <div class="section-sub">Fixed 2-player teams · Standings-based pairing · Team sit-outs</div>
+        <div class="section-sub">Fixed 2-player teams · Standings-based pairing · Team sit-outs · Typical: 12–16 players (6–8 teams)</div>
       </div>
       <div class="section-badge"><span class="badge badge-blue">6 scenarios</span></div>
     </div>
 
-    <!-- TMEX-001 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">TMEX-001</div>
-        <div class="scenario-title">Create Team Mexicano: teams fixed, pairing standings-based</div>
-        <span class="badge badge-green scenario-type">Happy Path · Setup</span>
+        <div class="scenario-title">Create Team Mexicano with 8 fixed teams, standings-based pairing</div>
+        <span class="badge badge-green">Happy Path · Setup</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>Event with 8 players, 2 courts</li>
-          <li>4 pre-formed teams of 2</li>
+          <li>Event with 16 players, 4 courts</li>
+          <li>8 pre-formed teams of 2</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
           <li>Select tournament type: <strong>Team Mexicano</strong></li>
-          <li>Form 4 teams: T1(A+B), T2(C+D), T3(E+F), T4(G+H)</li>
-          <li>Select 2 courts, generate</li>
-          <li>Complete round 1, observe round 2 pairings</li>
+          <li>Form 8 teams, select 4 courts</li>
+          <li>Generate tournament</li>
+          <li>Complete round 1, observe round 2 team matchups</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>Round 1: random team matchups (T1 vs T2, T3 vs T4)</li>
-          <li>Round 2: teams reordered by standings — rank 1+3 vs rank 2+4 per court</li>
-          <li>T1 always has players A and B together (never split)</li>
-          <li>Team composition never changes across any round</li>
+          <li>Round 1: random team matchups (no standings yet)</li>
+          <li>Round 2: teams ordered by standings — rank 1+3 vs rank 2+4 per court</li>
+          <li>Team A players (e.g. Player 1 + Player 2) always appear together in every round</li>
+          <li>Team composition NEVER changes throughout the tournament</li>
         </ul></div>
       </div>
     </div>
 
-    <!-- TMEX-002 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">TMEX-002</div>
-        <div class="scenario-title">Team sit-out with odd team count (3 teams, 1 court)</div>
-        <span class="badge badge-orange scenario-type">Edge Case · Team Sit-out</span>
+        <div class="scenario-title">13 teams + 3 courts: one team sits out per round, rotation enforced</div>
+        <span class="badge badge-orange">Edge Case · Team Sit-out</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>3 teams, 1 court (odd team count)</li>
+          <li>Team Mexicano with 13 teams, 3 courts (13 = 3×2 + 7 — actually 3 courts × 2 matches = 12 teams play, 1 sits out)</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
-          <li>Create Team Mexicano with 3 teams, 1 court</li>
-          <li>Observe which team sits out round 1</li>
+          <li>Create Team Mexicano with 13 teams, 3 courts</li>
+          <li>Note which team sits out round 1</li>
           <li>Complete round 1, observe round 2 sit-out</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>Round 1: 2 teams play, 1 team in <code>teamsSittingOutInRound</code></li>
-          <li>Sitting-out team receives 0 points for round 1</li>
-          <li>Round 2: previously sitting team now plays</li>
+          <li>Round 1: 12 teams in 6 matches, 1 team in <code>teamsSittingOutInRound</code></li>
+          <li>Sitting-out team earns 0 points for that round</li>
+          <li>Round 2: the sitting-out team plays</li>
           <li>No team sits out two consecutive rounds</li>
-          <li>Both players of sitting-out team are idle that round (no phantom match)</li>
+          <li>Both players on the sitting-out team have no match that round</li>
         </ul></div>
       </div>
     </div>
 
-    <!-- TMEX-003 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">TMEX-003</div>
-        <div class="scenario-title">Future rounds regenerate on team score submission</div>
-        <span class="badge badge-green scenario-type">Happy Path · Core Mechanic</span>
+        <div class="scenario-title">Score submission triggers future-round regeneration for team Mexicano</div>
+        <span class="badge badge-green">Happy Path · Regeneration</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>Team Mexicano active, round 1 in progress</li>
+          <li>Team Mexicano, round 1 complete</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
           <li>Submit all round 1 match scores</li>
-          <li>Observe round 2 team pairings</li>
+          <li>Check whether round 2 team pairings changed from their pre-generated state</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>Round 2 regenerated based on updated team standings after round 1</li>
-          <li>Top-ranked team paired with 3rd-ranked team in round 2</li>
-          <li>Same regeneration rules as Classic Mexicano but applied per team entity</li>
+          <li>Round 2 team pairings regenerated based on updated standings</li>
+          <li>Top-ranked team paired with 3rd-ranked team (not random)</li>
+          <li>Confirms <code>isMexicanoMode('teamMexicano') === true</code> in backend engine</li>
+          <li>Contrast: submitting score for Americano does NOT trigger regeneration</li>
         </ul></div>
       </div>
     </div>
 
-    <!-- TMEX-004 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">TMEX-004</div>
-        <div class="scenario-title">Distinguish Team Mexicano from Classic Mexicano in pairing</div>
-        <span class="badge badge-blue scenario-type">Behavioral Contract</span>
+        <div class="scenario-title">Team partners never split — key contract vs Classic Mexicano</div>
+        <span class="badge badge-blue">Behavioral Contract</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>Two tournaments: one Classic Mexicano, one Team Mexicano, same 4 players</li>
+          <li>Team Mexicano, 6 rounds completed</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
-          <li>Run both tournaments in parallel through round 2</li>
-          <li>Compare partner assignments in round 2</li>
+          <li>Inspect all 6 rounds of match assignments</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>Classic Mexicano: partners can rotate between rounds (A+C round 1, A+D round 2)</li>
-          <li>Team Mexicano: partners NEVER change (A+B every round)</li>
-          <li>Both use the same 1+3 vs 2+4 matchup logic for opponents</li>
-          <li>Only partner assignment rule differs between the two modes</li>
+          <li>Every team has the same 2 players across all 6 rounds without exception</li>
+          <li>Classic Mexicano (different format): same player could have rotated partners — this confirms the distinction</li>
+          <li>Only the opponent matchup changes round to round, never the partner</li>
         </ul></div>
       </div>
     </div>
 
-    <!-- TMEX-005 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">TMEX-005</div>
-        <div class="scenario-title">isMexicanoMode gate ensures regeneration for Team Mexicano</div>
-        <span class="badge badge-blue scenario-type">Invariant · Engine Check</span>
+        <div class="scenario-title">Multi-set scoring: sets won stored correctly (not raw game score)</div>
+        <span class="badge badge-orange">Edge Case · Score Mode</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>Team Mexicano tournament active</li>
+          <li>Team Mexicano configured with best-of-3 set scoring</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
-          <li>Submit a score for any match in any round</li>
+          <li>Submit: Team 1 wins set 1 (6–4) and set 2 (6–3). Match is 2–0 sets.</li>
+          <li>Check stored match scores and standings</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>Backend calls <code>regenerateFutureRounds()</code> (confirmed by checking match updates post-score)</li>
-          <li>Future rounds are deleted and recreated (standings-responsive)</li>
-          <li>This confirms <code>isMexicanoMode('teamMexicano') === true</code> in the engine</li>
-          <li>Contrast: Americano score submission does NOT trigger regeneration</li>
+          <li>Stored <code>team1Score = 2</code> (sets won), <code>team2Score = 0</code></li>
+          <li>NOT stored as total games (10 vs 7 would be wrong)</li>
+          <li>Set detail preserved in <code>scoreDetail</code> for display</li>
+          <li>Standings use sets won for ranking, not game totals</li>
         </ul></div>
+        <div class="bug-note"><strong>⚠ RC-3:</strong> <code>storedTeam1Score = team1SetsWon</code> ALWAYS — even in plain points mode. Fix: <code>isMultiSet ? team1SetsWon : team1Score</code>.</div>
       </div>
     </div>
 
-    <!-- TMEX-006 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">TMEX-006</div>
-        <div class="scenario-title">Team Mexicano set-score mode (multi-set scoring)</div>
-        <span class="badge badge-orange scenario-type">Edge Case · Scoring Mode</span>
+        <div class="scenario-title">Standings tiebreaker resolves identical team win records</div>
+        <span class="badge badge-orange">Edge Case · Tiebreaker</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>Team Mexicano configured with set-based scoring (not points-based)</li>
+          <li>Team Mexicano, 4 rounds complete. Team Alpha and Team Beta both have 2 wins, 2 losses.</li>
+          <li>Team Alpha: pointsFor=54, pointsAgainst=38 (+16 differential)</li>
+          <li>Team Beta: pointsFor=48, pointsAgainst=40 (+8 differential)</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
-          <li>Create tournament with <code>isMultiSet = true</code> scoring</li>
-          <li>Submit: Team 1 wins set 1 (6–4) and set 2 (6–3)</li>
-          <li>Check stored score and standings</li>
+          <li>Check standings order between Alpha and Beta</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>Stored <code>team1Score = 2</code> (sets won, not games)</li>
-          <li>Stored <code>team2Score = 0</code></li>
-          <li>Set detail stored in <code>scoreDetail</code></li>
-          <li>Standings use sets won (not game points) for ranking</li>
+          <li>Team Alpha ranked above Team Beta (better point differential)</li>
+          <li>This rank difference means round 5 pairs Alpha differently from Beta</li>
+          <li>Rank ordering confirmed: <code>rank</code> column used (not raw <code>points</code> for tiebreaker)</li>
         </ul></div>
-
-        <div class="bug-note">
-          <strong>⚠ Known Bug (RC-3):</strong> <code>storedTeam1Score = team1SetsWon</code> ALWAYS — even in points mode. Fix: use <code>isMultiSet ? team1SetsWon : team1Score</code> to correctly store points vs sets.
-        </div>
       </div>
     </div>
 
 
-    <!-- ════════════════════════════════
+    <!-- ═══════════════════════════════════════
          KING OF COURTS
-    ════════════════════════════════ -->
+    ═══════════════════════════════════════ -->
     <div id="koc" class="section-header">
       <div class="section-icon" style="background:#FEF9E7">👑</div>
       <div>
         <div class="section-title">King of Courts (Individual)</div>
-        <div class="section-sub">Rotating partners · Court promotion/relegation · Exact 4×courts players</div>
+        <div class="section-sub">Rotating partners · Court promotion/relegation · Exactly 4×courts players required</div>
       </div>
       <div class="section-badge"><span class="badge badge-orange">7 scenarios</span></div>
     </div>
 
-    <!-- KOC-001 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">KOC-001</div>
-        <div class="scenario-title">Create KOC with exactly 4×courts players</div>
-        <span class="badge badge-green scenario-type">Happy Path · Setup</span>
+        <div class="scenario-title">Create KOC with 12 players across 3 courts (exact requirement)</div>
+        <span class="badge badge-green">Happy Path · Setup</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>Event with 8 players and 2 courts</li>
+          <li>Event with exactly 12 participants, 3 courts registered</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
           <li>Select tournament type: <strong>King of Courts</strong></li>
-          <li>Select exactly 8 players, 2 courts</li>
+          <li>Select all 12 players, 3 courts</li>
           <li>Generate tournament</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>Round 1 created with 2 matches (one per court)</li>
-          <li>Each court has exactly 4 players</li>
-          <li>One court designated "Winner Court" (highest index), one "Entry Court" (index 0)</li>
-          <li>Initial assignment is random</li>
-          <li>All 8 players in round 1, no sit-outs</li>
+          <li>Round 1: 3 matches (one per court), 4 players per match</li>
+          <li>Court 0 = Entry Court (lowest points), Court 2 = Winner Court (highest points)</li>
+          <li>All 12 players assigned randomly to courts in round 1</li>
+          <li>No sit-outs (exact count: 4×3 = 12)</li>
+          <li>Standings table: 12 entries at 0 points</li>
         </ul></div>
-
         <h4>Edge Cases</h4>
         <div class="edge-cases"><ul>
-          <li>7 players selected for 2 courts → creation fails: "Requires exactly 8 players for 2 courts"</li>
-          <li>9 players selected → creation fails with same error</li>
-          <li>1 court needs exactly 4 players</li>
+          <li>11 players + 3 courts → creation fails: "KOC requires exactly 12 players for 3 courts"</li>
+          <li>13 players + 3 courts → creation fails with same error</li>
+          <li>16 players + 4 courts → valid (4×4 = 16)</li>
         </ul></div>
       </div>
     </div>
 
-    <!-- KOC-002 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">KOC-002</div>
-        <div class="scenario-title">Winners move to higher court, losers move to lower court</div>
-        <span class="badge badge-green scenario-type">Happy Path · Court Rotation</span>
+        <div class="scenario-title">Winners promoted, losers relegated after each round</div>
+        <span class="badge badge-green">Happy Path · Court Rotation</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>KOC with 2 courts, round 1 active</li>
-          <li>Court 1 = Entry Court, Court 2 = Winner Court</li>
-          <li>Match A on Court 1: Players P1+P2 vs P3+P4</li>
-          <li>Match B on Court 2: Players P5+P6 vs P7+P8</li>
+          <li>KOC with 12 players, 3 courts. Court 0 = Entry, Court 1 = Middle, Court 2 = Winner.</li>
+          <li>Round 1: Team A wins on Court 0, Team B loses on Court 1, Team C wins on Court 2</li>
         </ul></div>
-
-        <h4>Steps</h4>
-        <div class="steps"><ol>
-          <li>Submit Court 1 score: Team P1+P2 wins 16–12</li>
-          <li>Submit Court 2 score: Team P5+P6 wins 16–10</li>
-          <li>Observe round 2 court assignments</li>
-        </ol></div>
-
-        <h4>Assertions</h4>
-        <div class="assertions"><ul>
-          <li>Winning team from Court 1 (P1+P2) moves UP to Court 2 (Winner Court)</li>
-          <li>Losing team from Court 1 (P3+P4) stays on Court 1 (already at Entry Court, cannot go lower)</li>
-          <li>Winning team from Court 2 (P5+P6) stays on Court 2 (already at Winner Court)</li>
-          <li>Losing team from Court 2 (P7+P8) moves DOWN to Court 1</li>
-          <li>Round 2 court assignments reflect these movements</li>
-        </ul></div>
-      </div>
-    </div>
-
-    <!-- KOC-003 -->
-    <div class="scenario">
-      <div class="scenario-header">
-        <div class="scenario-id">KOC-003</div>
-        <div class="scenario-title">Individual players re-paired randomly each round on same court</div>
-        <span class="badge badge-green scenario-type">Happy Path · Partner Rotation</span>
-      </div>
-      <div class="scenario-body">
-        <h4>Preconditions</h4>
-        <div class="preconditions"><ul>
-          <li>KOC with 1 court, 4 players</li>
-          <li>Round 1: A+B vs C+D</li>
-        </ul></div>
-
-        <h4>Steps</h4>
-        <div class="steps"><ol>
-          <li>Complete round 1 (all 4 stay on same court since only 1 court)</li>
-          <li>Observe round 2 pairing on court 1</li>
-        </ol></div>
-
-        <h4>Assertions</h4>
-        <div class="assertions"><ul>
-          <li>Round 2 may pair A+C vs B+D or A+D vs B+C (random re-pairing)</li>
-          <li>Not necessarily A+B vs C+D again (rotation attempted)</li>
-          <li>All 4 players still on court 1</li>
-          <li>Individual KOC does NOT keep same partners round to round</li>
-        </ul></div>
-      </div>
-    </div>
-
-    <!-- KOC-004 -->
-    <div class="scenario">
-      <div class="scenario-header">
-        <div class="scenario-id">KOC-004</div>
-        <div class="scenario-title">Court-weighted standings: winner court earns more points</div>
-        <span class="badge badge-green scenario-type">Happy Path · Standings</span>
-      </div>
-      <div class="scenario-body">
-        <h4>Preconditions</h4>
-        <div class="preconditions"><ul>
-          <li>KOC with 3 courts: Court 1 (entry), Court 2 (middle), Court 3 (winner)</li>
-        </ul></div>
-
-        <h4>Steps</h4>
-        <div class="steps"><ol>
-          <li>Complete a round where different teams win on each court</li>
-          <li>Compare points awarded per court</li>
-        </ol></div>
-
-        <h4>Assertions</h4>
-        <div class="assertions"><ul>
-          <li>Winning on Court 3 earns more points than winning on Court 1</li>
-          <li>Points proportional to court rank (Court 1=1pt, Court 2=2pts, Court 3=3pts or similar)</li>
-          <li>Overall standings reflect cumulative court-weighted wins</li>
-          <li>Player who consistently wins on Winner Court ranks highest</li>
-        </ul></div>
-      </div>
-    </div>
-
-    <!-- KOC-005 -->
-    <div class="scenario">
-      <div class="scenario-header">
-        <div class="scenario-id">KOC-005</div>
-        <div class="scenario-title">Only next round generated after each KOC score submission</div>
-        <span class="badge badge-blue scenario-type">Invariant · Round Generation</span>
-      </div>
-      <div class="scenario-body">
-        <h4>Preconditions</h4>
-        <div class="preconditions"><ul>
-          <li>KOC tournament, round 1 active</li>
-        </ul></div>
-
-        <h4>Steps</h4>
-        <div class="steps"><ol>
-          <li>Complete all round 1 scores</li>
-          <li>Check how many future rounds exist</li>
-        </ol></div>
-
-        <h4>Assertions</h4>
-        <div class="assertions"><ul>
-          <li>Only round 2 generated (not rounds 2, 3, 4... all at once)</li>
-          <li>Round 3 does not exist until round 2 is completed</li>
-          <li>Contrast with Mexicano: KOC uses <code>regenerateKOCNextRound()</code> not <code>regenerateFutureRounds()</code></li>
-          <li>KOC never pre-generates more than 1 future round</li>
-        </ul></div>
-      </div>
-    </div>
-
-    <!-- KOC-006 -->
-    <div class="scenario">
-      <div class="scenario-header">
-        <div class="scenario-id">KOC-006</div>
-        <div class="scenario-title">KOC V1 vs V2 behavior (feature flag: new_logic_king_of_court)</div>
-        <span class="badge badge-purple scenario-type">Feature Flag · V1 vs V2</span>
-      </div>
-      <div class="scenario-body">
-        <h4>Preconditions</h4>
-        <div class="preconditions"><ul>
-          <li>Two events: one with flag ON (V2), one with flag OFF (V1)</li>
-        </ul></div>
-
-        <h4>Steps</h4>
-        <div class="steps"><ol>
-          <li>Create KOC in both events, complete round 1</li>
-          <li>Compare round 2 generation logic</li>
-        </ol></div>
-
-        <h4>Assertions</h4>
-        <div class="assertions"><ul>
-          <li>V1 and V2 both implement court promotion/relegation</li>
-          <li>V2 (new logic) applies improved partner rotation and/or matchup deduplication</li>
-          <li>Feature flag <code>new_logic_king_of_court</code> correctly routes to V1 or V2 service</li>
-          <li>Both versions produce valid court assignments (no player on two courts)</li>
-        </ul></div>
-      </div>
-    </div>
-
-    <!-- KOC-007 -->
-    <div class="scenario">
-      <div class="scenario-header">
-        <div class="scenario-id">KOC-007</div>
-        <div class="scenario-title">Entry court boundary: losing team cannot go below court 0</div>
-        <span class="badge badge-orange scenario-type">Edge Case · Court Boundary</span>
-      </div>
-      <div class="scenario-body">
-        <h4>Preconditions</h4>
-        <div class="preconditions"><ul>
-          <li>KOC with 2 courts, team on Entry Court (court index 0) loses</li>
-        </ul></div>
-
-        <h4>Steps</h4>
-        <div class="steps"><ol>
-          <li>Submit score where team on Entry Court loses</li>
-          <li>Observe next round assignment for losing team</li>
-        </ol></div>
-
-        <h4>Assertions</h4>
-        <div class="assertions"><ul>
-          <li>Losing team stays on Entry Court (cannot be relegated below court 0)</li>
-          <li>No error thrown for boundary case</li>
-          <li>Winner from Entry Court moves up to court 1 (or next court)</li>
-        </ul></div>
-      </div>
-    </div>
-
-
-    <!-- ════════════════════════════════
-         TEAM KING OF COURTS
-    ════════════════════════════════ -->
-    <div id="team-koc" class="section-header">
-      <div class="section-icon" style="background:#FEF9E7">🏅</div>
-      <div>
-        <div class="section-title">Team King of Courts</div>
-        <div class="section-sub">Fixed 2-player teams · Court rotation per result · Exact 2×courts teams</div>
-      </div>
-      <div class="section-badge"><span class="badge badge-orange">5 scenarios</span></div>
-    </div>
-
-    <!-- TKOC-001 -->
-    <div class="scenario">
-      <div class="scenario-header">
-        <div class="scenario-id">TKOC-001</div>
-        <div class="scenario-title">Create Team KOC with exactly 2 teams per court</div>
-        <span class="badge badge-green scenario-type">Happy Path · Setup</span>
-      </div>
-      <div class="scenario-body">
-        <h4>Preconditions</h4>
-        <div class="preconditions"><ul>
-          <li>Event with 8 players, 2 courts → need 4 teams</li>
-        </ul></div>
-
-        <h4>Steps</h4>
-        <div class="steps"><ol>
-          <li>Select tournament type: <strong>Team King of Courts</strong></li>
-          <li>Form 4 teams of 2 players each</li>
-          <li>Select 2 courts</li>
-          <li>Generate tournament</li>
-        </ol></div>
-
-        <h4>Assertions</h4>
-        <div class="assertions"><ul>
-          <li>Round 1: 2 matches, 2 teams per court</li>
-          <li>Team player compositions fixed (same 2 players per team every round)</li>
-          <li>Court 1 = Entry, Court 2 = Winner</li>
-          <li>No sit-outs (exact count: 2 teams × 2 courts = 4 teams)</li>
-        </ul></div>
-
-        <h4>Edge Cases</h4>
-        <div class="edge-cases"><ul>
-          <li>3 teams + 2 courts → fails with "Team KOC requires exactly 4 teams for 2 courts"</li>
-          <li>5 teams + 2 courts → fails with same error</li>
-        </ul></div>
-      </div>
-    </div>
-
-    <!-- TKOC-002 -->
-    <div class="scenario">
-      <div class="scenario-header">
-        <div class="scenario-id">TKOC-002</div>
-        <div class="scenario-title">Teams retain fixed composition across court rotations</div>
-        <span class="badge badge-green scenario-type">Happy Path · Team Invariant</span>
-      </div>
-      <div class="scenario-body">
-        <h4>Preconditions</h4>
-        <div class="preconditions"><ul>
-          <li>Team KOC active, multiple rounds</li>
-          <li>Team A = (Player 1 + Player 2)</li>
-        </ul></div>
-
-        <h4>Steps</h4>
-        <div class="steps"><ol>
-          <li>Complete 3 rounds, Team A promotes from Court 1 to Court 2 and back</li>
-          <li>Check Team A composition in each round</li>
-        </ol></div>
-
-        <h4>Assertions</h4>
-        <div class="assertions"><ul>
-          <li>Team A always has Player 1 + Player 2, regardless of court</li>
-          <li>No cross-team partner mixing occurs (unlike Individual KOC)</li>
-          <li>Court rotation affects which teams play each other, not who is on each team</li>
-        </ul></div>
-      </div>
-    </div>
-
-    <!-- TKOC-003 -->
-    <div class="scenario">
-      <div class="scenario-header">
-        <div class="scenario-id">TKOC-003</div>
-        <div class="scenario-title">3 courts: promotion chain works correctly</div>
-        <span class="badge badge-orange scenario-type">Edge Case · Multi-court</span>
-      </div>
-      <div class="scenario-body">
-        <h4>Preconditions</h4>
-        <div class="preconditions"><ul>
-          <li>Team KOC with 3 courts, 6 teams</li>
-          <li>Round 1: Team A wins Court 1, Team B wins Court 2, Team C wins Court 3</li>
-        </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
           <li>Submit all round 1 scores</li>
           <li>Observe round 2 court assignments</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>Winner of Court 1 promotes to Court 2</li>
-          <li>Winner of Court 2 promotes to Court 3</li>
-          <li>Loser of Court 2 relegates to Court 1</li>
-          <li>Loser of Court 3 relegates to Court 2</li>
-          <li>Winner of Court 3 (King) stays on Court 3</li>
-          <li>Court 1 loser stays on Court 1 (boundary)</li>
+          <li>Team A (winner of Court 0) moves UP to Court 1</li>
+          <li>Team B (loser of Court 1) moves DOWN to Court 0</li>
+          <li>Team C (winner of Court 2, the King) stays on Court 2</li>
+          <li>Losers of Court 2 drop to Court 1</li>
+          <li>Losers of Court 0 stay on Court 0 (cannot go lower)</li>
         </ul></div>
       </div>
     </div>
 
-    <!-- TKOC-004 -->
+    <div class="scenario">
+      <div class="scenario-header">
+        <div class="scenario-id">KOC-003</div>
+        <div class="scenario-title">Partners re-paired randomly on same court each round</div>
+        <span class="badge badge-green">Happy Path · Partner Rotation</span>
+      </div>
+      <div class="scenario-body">
+        <h4>Preconditions</h4>
+        <div class="preconditions"><ul>
+          <li>KOC with 12 players, 3 courts. Round 1 on Court 0: A+B vs C+D.</li>
+          <li>All 4 stay on Court 0 after round 1 (e.g., both teams tied or same promotion result)</li>
+        </ul></div>
+        <h4>Steps</h4>
+        <div class="steps"><ol>
+          <li>Complete round 1</li>
+          <li>Observe round 2 pairings on same court</li>
+        </ol></div>
+        <h4>Assertions</h4>
+        <div class="assertions"><ul>
+          <li>Round 2 may pair A+C vs B+D or A+D vs B+C (random re-pairing)</li>
+          <li>Same partner combination as round 1 is NOT guaranteed (rotation attempted)</li>
+          <li>Individual KOC does NOT keep same partners — this is the core difference from Team KOC</li>
+        </ul></div>
+      </div>
+    </div>
+
+    <div class="scenario">
+      <div class="scenario-header">
+        <div class="scenario-id">KOC-004</div>
+        <div class="scenario-title">Court-weighted standings: Winner Court wins more points</div>
+        <span class="badge badge-green">Happy Path · Standings</span>
+      </div>
+      <div class="scenario-body">
+        <h4>Preconditions</h4>
+        <div class="preconditions"><ul>
+          <li>KOC with 3 courts over multiple rounds</li>
+        </ul></div>
+        <h4>Steps</h4>
+        <div class="steps"><ol>
+          <li>Player X wins every round on Court 2 (Winner Court)</li>
+          <li>Player Y wins every round on Court 0 (Entry Court)</li>
+          <li>Compare standings</li>
+        </ol></div>
+        <h4>Assertions</h4>
+        <div class="assertions"><ul>
+          <li>Player X ranked above Player Y despite same win count</li>
+          <li>Points awarded proportional to court level (Court 2 > Court 1 > Court 0)</li>
+          <li>Overall champion is the consistent Winner Court winner</li>
+        </ul></div>
+      </div>
+    </div>
+
+    <div class="scenario">
+      <div class="scenario-header">
+        <div class="scenario-id">KOC-005</div>
+        <div class="scenario-title">Only the next round generated (not all future rounds)</div>
+        <span class="badge badge-blue">Invariant · Generation Logic</span>
+      </div>
+      <div class="scenario-body">
+        <h4>Preconditions</h4>
+        <div class="preconditions"><ul>
+          <li>KOC tournament, round 1 just completed</li>
+        </ul></div>
+        <h4>Steps</h4>
+        <div class="steps"><ol>
+          <li>Complete all round 1 matches</li>
+          <li>Count how many future rounds exist in database</li>
+        </ol></div>
+        <h4>Assertions</h4>
+        <div class="assertions"><ul>
+          <li>Only round 2 generated (not rounds 2, 3, 4, 5...)</li>
+          <li>Round 3 does not exist until round 2 is fully completed</li>
+          <li>KOC uses <code>regenerateKOCNextRound()</code> not <code>regenerateFutureRounds()</code></li>
+          <li>Contrast with Mexicano: KOC never pre-generates beyond +1 round</li>
+        </ul></div>
+      </div>
+    </div>
+
+    <div class="scenario">
+      <div class="scenario-header">
+        <div class="scenario-id">KOC-006</div>
+        <div class="scenario-title">KOC V2 routing via new_logic_king_of_court feature flag</div>
+        <span class="badge badge-purple">Feature Flag</span>
+      </div>
+      <div class="scenario-body">
+        <h4>Preconditions</h4>
+        <div class="preconditions"><ul>
+          <li>Two events: Event A with flag OFF (V1), Event B with flag ON (V2)</li>
+        </ul></div>
+        <h4>Steps</h4>
+        <div class="steps"><ol>
+          <li>Create KOC in both events with same 12 players</li>
+          <li>Complete round 1 on both</li>
+          <li>Compare round 2 generation</li>
+        </ol></div>
+        <h4>Assertions</h4>
+        <div class="assertions"><ul>
+          <li>Both V1 and V2 produce valid court rotation (promote winners, relegate losers)</li>
+          <li>V2 applies improved partner rotation / matchup deduplication logic</li>
+          <li>No player appears on two courts in the same round (both versions)</li>
+          <li>Flag routing confirmed: V1 service called when flag OFF, V2 when flag ON</li>
+        </ul></div>
+      </div>
+    </div>
+
+    <div class="scenario">
+      <div class="scenario-header">
+        <div class="scenario-id">KOC-007</div>
+        <div class="scenario-title">Entry court boundary: loser of Court 0 stays on Court 0</div>
+        <span class="badge badge-orange">Edge Case · Boundary</span>
+      </div>
+      <div class="scenario-body">
+        <h4>Preconditions</h4>
+        <div class="preconditions"><ul>
+          <li>KOC with 12 players, 3 courts. A team on Court 0 loses.</li>
+        </ul></div>
+        <h4>Steps</h4>
+        <div class="steps"><ol>
+          <li>Submit score where team on Court 0 loses</li>
+          <li>Observe losing team's court assignment in round 2</li>
+        </ol></div>
+        <h4>Assertions</h4>
+        <div class="assertions"><ul>
+          <li>Losing team remains on Court 0 (cannot be relegated below index 0)</li>
+          <li>No error thrown for this boundary case</li>
+          <li>Winner from Court 0 moves up to Court 1 as expected</li>
+        </ul></div>
+      </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════
+         TEAM KOC
+    ═══════════════════════════════════════ -->
+    <div id="team-koc" class="section-header">
+      <div class="section-icon" style="background:#FEF9E7">🏅</div>
+      <div>
+        <div class="section-title">Team King of Courts</div>
+        <div class="section-sub">Fixed 2-player teams rotate courts · Exactly 2×courts teams · Typical: 12 players (6 teams), 3 courts</div>
+      </div>
+      <div class="section-badge"><span class="badge badge-orange">5 scenarios</span></div>
+    </div>
+
+    <div class="scenario">
+      <div class="scenario-header">
+        <div class="scenario-id">TKOC-001</div>
+        <div class="scenario-title">Create Team KOC with 6 teams across 3 courts</div>
+        <span class="badge badge-green">Happy Path · Setup</span>
+      </div>
+      <div class="scenario-body">
+        <h4>Preconditions</h4>
+        <div class="preconditions"><ul>
+          <li>Event with 12 players (6 pre-formed teams of 2), 3 courts</li>
+        </ul></div>
+        <h4>Steps</h4>
+        <div class="steps"><ol>
+          <li>Select tournament type: <strong>Team King of Courts</strong></li>
+          <li>Register 6 teams of 2, select 3 courts</li>
+          <li>Generate tournament</li>
+        </ol></div>
+        <h4>Assertions</h4>
+        <div class="assertions"><ul>
+          <li>Round 1: 3 matches, 2 teams per court — all 6 teams assigned</li>
+          <li>Court 0 = Entry, Court 2 = Winner</li>
+          <li>No sit-outs (exact count: 2 teams × 3 courts = 6 teams)</li>
+          <li>Team compositions fixed (same 2 players per team)</li>
+        </ul></div>
+        <h4>Edge Cases</h4>
+        <div class="edge-cases"><ul>
+          <li>5 teams + 3 courts → creation fails: "Team KOC requires exactly 6 teams for 3 courts"</li>
+          <li>7 teams + 3 courts → creation fails (must be exactly 2×courts)</li>
+        </ul></div>
+      </div>
+    </div>
+
+    <div class="scenario">
+      <div class="scenario-header">
+        <div class="scenario-id">TKOC-002</div>
+        <div class="scenario-title">Teams retain fixed composition as they rotate between courts</div>
+        <span class="badge badge-blue">Invariant · Fixed Teams</span>
+      </div>
+      <div class="scenario-body">
+        <h4>Preconditions</h4>
+        <div class="preconditions"><ul>
+          <li>Team KOC, multiple rounds, Team A = Player 1 + Player 2</li>
+        </ul></div>
+        <h4>Steps</h4>
+        <div class="steps"><ol>
+          <li>Complete 5 rounds, tracking Team A's court position each round</li>
+        </ol></div>
+        <h4>Assertions</h4>
+        <div class="assertions"><ul>
+          <li>Team A always has Player 1 + Player 2 regardless of which court they're on</li>
+          <li>No partner swapping occurs between any two teams</li>
+          <li>Court changes (due to win/loss) are the only thing that varies per round</li>
+        </ul></div>
+      </div>
+    </div>
+
+    <div class="scenario">
+      <div class="scenario-header">
+        <div class="scenario-id">TKOC-003</div>
+        <div class="scenario-title">Multi-court promotion chain is correct across 3 courts</div>
+        <span class="badge badge-orange">Edge Case · Promotion Chain</span>
+      </div>
+      <div class="scenario-body">
+        <h4>Preconditions</h4>
+        <div class="preconditions"><ul>
+          <li>Team KOC, 6 teams, 3 courts. Round 1: T1 wins Court 0, T3 wins Court 1, T5 wins Court 2</li>
+        </ul></div>
+        <h4>Steps</h4>
+        <div class="steps"><ol>
+          <li>Submit all round 1 scores</li>
+          <li>Observe all 6 teams' round 2 court assignments</li>
+        </ol></div>
+        <h4>Assertions</h4>
+        <div class="assertions"><ul>
+          <li>T1 (won Court 0) promoted to Court 1</li>
+          <li>T3 (won Court 1) promoted to Court 2</li>
+          <li>T5 (won Court 2 = King) stays on Court 2</li>
+          <li>T2 (lost Court 0) stays on Court 0 (cannot go lower)</li>
+          <li>T4 (lost Court 1) relegated to Court 0</li>
+          <li>T6 (lost Court 2) relegated to Court 1</li>
+        </ul></div>
+      </div>
+    </div>
+
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">TKOC-004</div>
-        <div class="scenario-title">Team KOC standings: cumulative court-weighted points</div>
-        <span class="badge badge-green scenario-type">Happy Path · Standings</span>
+        <div class="scenario-title">Court-weighted standings over multiple rounds</div>
+        <span class="badge badge-green">Happy Path · Standings</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>Team KOC with 2 courts, 3 rounds completed</li>
+          <li>Team KOC, 3 courts, 4 rounds complete</li>
+          <li>Team Alpha wins 4 rounds all on Court 2 (Winner Court)</li>
+          <li>Team Beta wins 4 rounds all on Court 0 (Entry Court)</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
-          <li>Team Alpha wins 3 rounds on Court 2 (Winner Court)</li>
-          <li>Team Beta wins 3 rounds on Court 1 (Entry Court)</li>
-          <li>Compare standings</li>
+          <li>Complete 4 rounds with above results</li>
+          <li>Compare Team Alpha and Team Beta standings</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>Team Alpha ranked #1 (higher court wins = more points)</li>
-          <li>Team Beta ranked lower despite same win count</li>
-          <li>Standings reflect court-weighted scoring</li>
-          <li>Both players on each team share the team's rank</li>
+          <li>Team Alpha ranked above Team Beta despite same number of wins</li>
+          <li>Winner Court wins worth more points than Entry Court wins</li>
+          <li>Both players on each team share the team's rank in standings</li>
         </ul></div>
       </div>
     </div>
 
-    <!-- TKOC-005 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">TKOC-005</div>
-        <div class="scenario-title">Team KOC score mode correct (multi-set vs points)</div>
-        <span class="badge badge-orange scenario-type">Edge Case · Scoring</span>
+        <div class="scenario-title">Score mode: sets won stored correctly (not game totals)</div>
+        <span class="badge badge-orange">Edge Case · Scoring</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>Team KOC with multi-set scoring enabled</li>
+          <li>Team KOC configured with multi-set scoring</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
-          <li>Submit Team 1: wins set 1 (6-3), wins set 2 (6-4)</li>
-          <li>Check stored score</li>
+          <li>Submit: Team 1 wins set 1 (6–3), Team 2 wins set 2 (6–4), Team 1 wins set 3 (6–2)</li>
+          <li>Check stored score and court promotion decision</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>Stored team1Score = 2 (sets won), team2Score = 0</li>
-          <li>Court promotion based on sets won (team with 2 sets wins court)</li>
+          <li>Stored: <code>team1Score = 2</code> (sets won), <code>team2Score = 1</code></li>
+          <li>Team 1 identified as winner → promoted to higher court</li>
+          <li>Not stored as game totals (18 vs 9 would be wrong)</li>
         </ul></div>
-
-        <div class="bug-note">
-          <strong>⚠ Known Bug (RC-3):</strong> KOC score handler shares the same bug as Team Mexicano. <code>storedTeam1Score = team1SetsWon</code> always — fix: use <code>isMultiSet ? team1SetsWon : team1Score</code>.
-        </div>
+        <div class="bug-note"><strong>⚠ RC-3:</strong> Score handler stores <code>team1SetsWon</code> regardless of mode. Fix needed: distinguish multi-set vs points mode.</div>
       </div>
     </div>
 
 
-    <!-- ════════════════════════════════
+    <!-- ═══════════════════════════════════════
          ROUND ROBIN
-    ════════════════════════════════ -->
+    ═══════════════════════════════════════ -->
     <div id="round-robin" class="section-header">
       <div class="section-icon" style="background:#F5EEF8">🔃</div>
       <div>
         <div class="section-title">Round Robin (Mini Tournament)</div>
-        <div class="section-sub">All-vs-all · Fixed teams · Challonge backend · All matches upfront</div>
+        <div class="section-sub">All-vs-all · Fixed teams · Challonge · All matches generated upfront · Typical: 6–12 teams</div>
       </div>
       <div class="section-badge"><span class="badge badge-purple">6 scenarios</span></div>
     </div>
 
-    <!-- RR-001 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">RR-001</div>
-        <div class="scenario-title">Create Round Robin: all matches generated upfront</div>
-        <span class="badge badge-green scenario-type">Happy Path · Setup</span>
+        <div class="scenario-title">Create Round Robin with 8 teams: N×(N-1)/2 matches upfront</div>
+        <span class="badge badge-green">Happy Path · Setup</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>Event with 4 teams registered</li>
-          <li>Feature flag <code>miniTournament</code> enabled</li>
+          <li>Event with 8 registered teams</li>
+          <li>Feature flag <code>miniTournament</code> enabled for this organizer</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
           <li>Select tournament type: <strong>Round Robin</strong></li>
-          <li>Add 4 teams</li>
-          <li>Configure: single round robin, Win=3pts, Draw=1pt, Loss=0pts</li>
+          <li>Add 8 teams</li>
+          <li>Configure: single round robin, Win = 3pts, Draw = 1pt, Loss = 0pts</li>
           <li>Generate tournament</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>Total matches = 4×(4-1)/2 = 6 matches generated immediately</li>
-          <li>Each team plays exactly 3 matches (vs every other team once)</li>
-          <li>All 6 matches show as <code>pending</code></li>
+          <li>Total matches = 8×7/2 = 28 generated immediately</li>
+          <li>Each team has exactly 7 matches (plays every other team once)</li>
           <li>No team plays itself</li>
-          <li>Standings table shows 4 teams, all at 0 points</li>
+          <li>All 28 matches show as <code>pending</code></li>
+          <li>Standings: 8 teams, all at 0 points, 0 played</li>
         </ul></div>
-
         <h4>Edge Cases</h4>
         <div class="edge-cases"><ul>
-          <li>Double round robin: 4×(4-1) = 12 matches (each pair plays twice)</li>
-          <li>2 teams: 1 match generated</li>
-          <li>8 teams: 28 matches generated</li>
+          <li>Double round robin with 8 teams: 56 matches (each pair plays twice)</li>
+          <li>12 teams: 66 matches generated</li>
+          <li>Flag disabled → Round Robin not available in tournament type selector</li>
         </ul></div>
       </div>
     </div>
 
-    <!-- RR-002 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">RR-002</div>
-        <div class="scenario-title">Score submission updates team standings</div>
-        <span class="badge badge-green scenario-type">Happy Path · Scoring</span>
+        <div class="scenario-title">Score submission updates standings for both teams</div>
+        <span class="badge badge-green">Happy Path · Scoring</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>Round Robin with 4 teams, 6 matches pending</li>
+          <li>Round Robin, 8 teams, 28 matches pending</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
-          <li>Submit: Team A beats Team B (6-4 games)</li>
-          <li>Submit: Team C beats Team D (6-2 games)</li>
-          <li>Check standings after 2 matches</li>
+          <li>Submit: Team A beats Team B (6–3 games)</li>
+          <li>Submit: Team C beats Team D (6–2 games)</li>
+          <li>Check standings</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>Team A: 3pts, Team C: 3pts (tied on points, not yet played each other)</li>
-          <li>Team B: 0pts, Team D: 0pts</li>
-          <li>Point differential shown: A(+2), C(+4), B(-2), D(-4)</li>
-          <li>Rankings by points first, then differential</li>
-          <li>Remaining 4 matches still show as pending</li>
+          <li>Team A: 3pts, 1 played, 1 win, +3 differential</li>
+          <li>Team C: 3pts, 1 played, 1 win, +4 differential</li>
+          <li>Team B: 0pts, 1 played, 1 loss</li>
+          <li>Team D: 0pts, 1 played, 1 loss</li>
+          <li>Teams E–H: 0 points, 0 played (their matches not yet scored)</li>
+          <li>26 matches still pending</li>
         </ul></div>
       </div>
     </div>
 
-    <!-- RR-003 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">RR-003</div>
-        <div class="scenario-title">Round Robin completes after all 6 matches scored</div>
-        <span class="badge badge-green scenario-type">Happy Path · Completion</span>
+        <div class="scenario-title">Matches can be scored in any order (no round dependency)</div>
+        <span class="badge badge-blue">Invariant · Order Independence</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>Round Robin with 4 teams, 5 of 6 matches completed</li>
+          <li>Round Robin, 8 teams, 28 matches pending</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
-          <li>Submit final (6th) match score</li>
-          <li>Observe tournament state</li>
+          <li>Submit match 28 (last in list) first</li>
+          <li>Submit match 1 second</li>
+          <li>Continue in arbitrary order until all 28 submitted</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>Tournament status transitions to <code>completed</code></li>
-          <li>Final rankings locked and displayed</li>
-          <li>Champion (rank 1) highlighted in UI</li>
-          <li>No additional matches can be added</li>
+          <li>Every match scoreable independently in any sequence</li>
+          <li>Standings update correctly after each submission</li>
+          <li>No "must complete this group of matches before next" gating</li>
+          <li>Final standings identical regardless of submission order</li>
         </ul></div>
       </div>
     </div>
 
-    <!-- RR-004 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">RR-004</div>
         <div class="scenario-title">Three-way tie resolved by point differential</div>
-        <span class="badge badge-orange scenario-type">Edge Case · Tiebreaker</span>
+        <span class="badge badge-orange">Edge Case · Tiebreaker</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>Round Robin with 4 teams: A, B, C, D</li>
-          <li>A beats D, B beats A, C beats B, D beats C → each has 1 win, 1 loss so far</li>
+          <li>Round Robin, 4 teams in a group. Designed 3-way tie scenario: A, B, C each 1 win 1 loss in head-to-head (A beat B, B beat C, C beat A).</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
-          <li>Complete all 6 matches with a designed 3-way tie scenario</li>
-          <li>Teams A, B, C all have same points</li>
-          <li>Check final standings</li>
+          <li>Complete all 6 matches producing the 3-way tie</li>
+          <li>Observe final rankings</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>Tie broken by total point differential (games for minus games against)</li>
-          <li>If still tied: head-to-head result between tied teams used</li>
-          <li>No shared rank positions (each team gets unique rank)</li>
-          <li>Standings UI shows tiebreaker indicator</li>
+          <li>Tie broken by: total points, then point differential (games for minus games against)</li>
+          <li>If still equal: head-to-head result within the tied group</li>
+          <li>Every team has a unique rank (no shared positions)</li>
+          <li>UI indicates tiebreaker was applied</li>
         </ul></div>
       </div>
     </div>
 
-    <!-- RR-005 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">RR-005</div>
-        <div class="scenario-title">Set-based scoring in Round Robin (best-of-3)</div>
-        <span class="badge badge-orange scenario-type">Edge Case · Scoring Mode</span>
+        <div class="scenario-title">Tournament completes after all 28 matches scored</div>
+        <span class="badge badge-green">Happy Path · Completion</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>Round Robin configured with best-of-3 set scoring</li>
+          <li>Round Robin, 8 teams, 27 of 28 matches completed</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
-          <li>Submit: Team A wins 2-1 sets (6-4, 4-6, 6-3)</li>
-          <li>Check stored score and standings</li>
+          <li>Submit the final (28th) match score</li>
+          <li>Observe tournament state</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>Team A recorded as winner (2 sets to 1)</li>
-          <li>scoreDetail stores individual set scores</li>
-          <li>Team A earns Win points (e.g. 3pts)</li>
-          <li>Set ratio used as secondary tiebreaker if applicable</li>
+          <li>Tournament status transitions to <code>completed</code></li>
+          <li>Final 8-team ranking displayed and locked</li>
+          <li>Champion (1st place) highlighted</li>
+          <li>No further matches can be added or scored</li>
         </ul></div>
       </div>
     </div>
 
-    <!-- RR-006 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">RR-006</div>
-        <div class="scenario-title">Matches can be played in any order (no round dependency)</div>
-        <span class="badge badge-blue scenario-type">Invariant · Order Independence</span>
+        <div class="scenario-title">Double round robin: each pair plays twice, 56 total matches</div>
+        <span class="badge badge-orange">Edge Case · Double RR</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>Round Robin with 4 teams, all 6 matches generated</li>
+          <li>Round Robin configured with <code>scheduleType = double_round_robin</code>, 8 teams</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
-          <li>Submit match 6 (last in list) first</li>
-          <li>Submit match 1 second</li>
-          <li>Submit remaining matches in any order</li>
+          <li>Create tournament, count generated matches</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>Each match can be scored independently, in any sequence</li>
-          <li>Standings update correctly after each submission regardless of order</li>
-          <li>No "round must be completed before next round" gating exists for RR</li>
+          <li>56 matches generated (8×7 = 56)</li>
+          <li>Each team plays 14 matches total (7 opponents × 2 each)</li>
+          <li>First encounter between any pair is a different entry from their second encounter</li>
+          <li>Standings count all 14 matches per team</li>
         </ul></div>
       </div>
     </div>
 
 
-    <!-- ════════════════════════════════
+    <!-- ═══════════════════════════════════════
          KNOCKOUT
-    ════════════════════════════════ -->
+    ═══════════════════════════════════════ -->
     <div id="knockout" class="section-header">
       <div class="section-icon" style="background:#FDEDEC">🏆</div>
       <div>
         <div class="section-title">Knockout (Mini Tournament)</div>
-        <div class="section-sub">Single elimination · Seeded bracket · Power-of-2 sizing with byes</div>
+        <div class="section-sub">Single elimination · Seeded bracket · Power-of-2 with byes · Typical: 8–16 teams</div>
       </div>
       <div class="section-badge"><span class="badge badge-red">5 scenarios</span></div>
     </div>
 
-    <!-- KO-001 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">KO-001</div>
-        <div class="scenario-title">Create Knockout with 6 teams: bracket size = 8 (with 2 byes)</div>
-        <span class="badge badge-green scenario-type">Happy Path · Setup</span>
+        <div class="scenario-title">Create Knockout with 12 teams: bracket size 16, top 4 seeds get byes</div>
+        <span class="badge badge-green">Happy Path · Setup</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>Event with 6 teams registered</li>
-          <li>Feature flag <code>miniTournament</code> enabled</li>
+          <li>Event with 12 registered teams, <code>miniTournament</code> flag enabled</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
           <li>Select tournament type: <strong>Knockout</strong></li>
-          <li>Add 6 teams with seed order</li>
+          <li>Add 12 teams with seed order (1 = strongest)</li>
           <li>Generate tournament</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>Bracket size = 8 (next power of 2 ≥ 6)</li>
-          <li>Seeds 1 and 2 (top teams) receive byes in round 1</li>
-          <li>Byes shown in UI as "BYE" entries</li>
-          <li>Seeded teams 1 and 2 advance directly to QF (round 2)</li>
-          <li>Lower seeds (3–6) play round 1 matches</li>
-          <li>Round 1 has 2 real matches + 2 byes</li>
+          <li>Bracket size = 16 (next power of 2 ≥ 12)</li>
+          <li>Seeds 1–4 (top 4) receive byes in round 1 — advance automatically</li>
+          <li>Seeds 5–12 play round 1 matches (4 matches = 8 teams)</li>
+          <li>Round 1 bracket shows 4 real matches + 4 bye slots</li>
+          <li>Byes labelled "BYE" in UI, not scoreable</li>
         </ul></div>
-
         <h4>Edge Cases</h4>
         <div class="edge-cases"><ul>
-          <li>4 teams → bracket size = 4, no byes, all play round 1</li>
-          <li>8 teams → bracket size = 8, no byes, all play round 1</li>
-          <li>2 teams → bracket size = 2, 1 final match only</li>
+          <li>8 teams → bracket = 8, no byes, all play round 1</li>
+          <li>16 teams → bracket = 16, no byes</li>
+          <li>9 teams → bracket = 16, top 7 seeds get byes</li>
         </ul></div>
       </div>
     </div>
 
-    <!-- KO-002 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">KO-002</div>
-        <div class="scenario-title">Winner advances, loser is eliminated</div>
-        <span class="badge badge-green scenario-type">Happy Path · Advancement</span>
+        <div class="scenario-title">Winner advances, loser is eliminated permanently</div>
+        <span class="badge badge-green">Happy Path · Advancement</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>Knockout with 4 teams: A(seed 1) vs B(seed 4), C(seed 2) vs D(seed 3)</li>
+          <li>Knockout with 8 teams: QF matchups: A(1) vs H(8), B(2) vs G(7), C(3) vs F(6), D(4) vs E(5)</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
-          <li>Submit: Team A beats Team B</li>
-          <li>Submit: Team D beats Team C (upset)</li>
-          <li>Observe semi-final / final bracket</li>
+          <li>Submit all QF results: A, G(upset), C, E(upset) all win</li>
+          <li>Observe SF bracket</li>
+          <li>Check status of eliminated teams B, D, F, H</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>Team A and Team D advance to the final</li>
-          <li>Team B and Team C are eliminated (no more matches for them)</li>
-          <li>Final match: Team A vs Team D is auto-created</li>
-          <li>Bracket UI shows A and D in the final</li>
-          <li>B and C shown as "Eliminated" in bracket</li>
+          <li>SF: A vs E, G vs C (winners advance as expected)</li>
+          <li>Teams B, D, F, H have no further matches</li>
+          <li>B, D, F, H shown as "Eliminated" in bracket view</li>
+          <li>Final round generated automatically once both SFs are completed</li>
         </ul></div>
       </div>
     </div>
 
-    <!-- KO-003 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">KO-003</div>
-        <div class="scenario-title">Correct seed ordering: 1 vs 8, 2 vs 7, 3 vs 6, 4 vs 5</div>
-        <span class="badge badge-blue scenario-type">Invariant · Seeding</span>
+        <div class="scenario-title">Correct seeding: Seed 1 vs Seed 8, Seed 2 vs Seed 7 in QF</div>
+        <span class="badge badge-blue">Invariant · Seeding</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
           <li>Knockout with 8 teams, seeds 1–8</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
-          <li>Create Knockout, observe round 1 matchups</li>
+          <li>Generate Knockout, observe QF matchups</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>Seed 1 plays Seed 8</li>
-          <li>Seed 2 plays Seed 7</li>
-          <li>Seed 3 plays Seed 6</li>
-          <li>Seed 4 plays Seed 5</li>
-          <li>Top seeds on opposite sides of bracket (can only meet in final)</li>
+          <li>Seed 1 vs Seed 8, Seed 2 vs Seed 7, Seed 3 vs Seed 6, Seed 4 vs Seed 5</li>
+          <li>Seeds 1 and 2 on opposite sides of bracket (cannot meet before the final)</li>
+          <li>Bracket structure is a standard seeded tournament draw</li>
         </ul></div>
       </div>
     </div>
 
-    <!-- KO-004 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">KO-004</div>
-        <div class="scenario-title">Prerequisite match dependency: next round not accessible until previous complete</div>
-        <span class="badge badge-orange scenario-type">Edge Case · Match Lock</span>
+        <div class="scenario-title">Final not accessible until both semi-finals are complete</div>
+        <span class="badge badge-orange">Edge Case · Prerequisite Lock</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>Knockout with 4 teams, semi-finals pending</li>
-          <li>SF1 complete, SF2 pending</li>
+          <li>Knockout, SF1 complete, SF2 still pending</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
-          <li>Attempt to submit score for the Final before SF2 is complete</li>
+          <li>Attempt to submit score for Final before SF2 is complete</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>Final match has no team 2 assigned (team2 comes from SF2 winner)</li>
-          <li>Score submission for Final rejected until both semi-finals complete</li>
-          <li>Final match shows "Awaiting winner of SF2" placeholder</li>
-          <li>Once SF2 scored: Final match auto-populated with winner</li>
+          <li>Final match has no Team 2 assigned (pending SF2 winner)</li>
+          <li>Score submission for Final rejected or blocked in UI</li>
+          <li>Final shows "Awaiting winner of SF2"</li>
+          <li>After SF2 scored: Team 2 auto-populated in Final match</li>
         </ul></div>
       </div>
     </div>
 
-    <!-- KO-005 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">KO-005</div>
-        <div class="scenario-title">Tournament complete after Final match scored</div>
-        <span class="badge badge-green scenario-type">Happy Path · Completion</span>
+        <div class="scenario-title">Final match completion ends tournament, champion confirmed</div>
+        <span class="badge badge-green">Happy Path · Completion</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>Knockout bracket with all matches complete except Final</li>
+          <li>Knockout, all QF and SF complete, Final pending</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
           <li>Submit Final match score</li>
-          <li>Observe tournament state</li>
+          <li>Observe tournament state and standings</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>Tournament status transitions to <code>completed</code></li>
-          <li>Winner shown with champion indicator (🏆)</li>
-          <li>Final standings: 1st = winner, 2nd = runner-up, 3rd/4th = semi-final losers</li>
-          <li>No further score submissions possible</li>
+          <li>Tournament status → <code>completed</code></li>
+          <li>1st = Final winner, 2nd = runner-up, 3rd/4th = SF losers</li>
+          <li>Champion indicator (🏆) shown for 1st place</li>
+          <li>No further scores accepted</li>
         </ul></div>
       </div>
     </div>
 
 
-    <!-- ════════════════════════════════
+    <!-- ═══════════════════════════════════════
          ROUND ROBIN + KNOCKOUT
-    ════════════════════════════════ -->
+    ═══════════════════════════════════════ -->
     <div id="rr-ko" class="section-header">
       <div class="section-icon" style="background:#F5EEF8">⚡</div>
       <div>
         <div class="section-title">Round Robin + Knockout</div>
-        <div class="section-sub">Two-phase · RR seeds KO bracket · Score editing locked after phase transition</div>
+        <div class="section-sub">Two-phase · RR seeding determines KO bracket · Score editing locked after phase transition</div>
       </div>
       <div class="section-badge"><span class="badge badge-purple">7 scenarios</span></div>
     </div>
 
-    <!-- RRKO-001 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">RRKO-001</div>
-        <div class="scenario-title">Create RR+KO: configure both phases before generating</div>
-        <span class="badge badge-green scenario-type">Happy Path · Setup</span>
+        <div class="scenario-title">Create RR+KO with 12 teams, top 8 advance to knockout</div>
+        <span class="badge badge-green">Happy Path · Setup</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>Event with 8 teams, <code>miniTournament</code> flag enabled</li>
+          <li>Event with 12 registered teams, <code>miniTournament</code> flag enabled</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
           <li>Select tournament type: <strong>Round Robin + Knockout</strong></li>
-          <li>Configure RR: single round robin, 8 teams</li>
-          <li>Configure KO: top 4 advance to semi-finals</li>
+          <li>Configure RR: single round robin, 12 teams</li>
+          <li>Configure KO advancement: top 8</li>
           <li>Generate tournament</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>All 28 RR matches generated immediately (8×7/2 = 28)</li>
-          <li>Knockout bracket NOT generated yet (awaiting RR completion)</li>
-          <li>Tournament shows current phase: "Group Stage"</li>
-          <li>KO advancement threshold set to top 4</li>
+          <li>66 RR matches generated immediately (12×11/2 = 66)</li>
+          <li>KO bracket NOT generated yet</li>
+          <li>Phase indicator shows "Group Stage"</li>
+          <li>KO advancement threshold = top 8 stored in config</li>
         </ul></div>
       </div>
     </div>
 
-    <!-- RRKO-002 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">RRKO-002</div>
-        <div class="scenario-title">KO phase only starts after ALL group stage matches complete</div>
-        <span class="badge badge-green scenario-type">Happy Path · Phase Gate</span>
+        <div class="scenario-title">KO phase starts automatically only after all RR matches complete</div>
+        <span class="badge badge-green">Happy Path · Phase Gate</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>RR+KO with 4 teams, 6 RR matches</li>
-          <li>5 of 6 RR matches completed</li>
+          <li>RR+KO, 12 teams, 65 of 66 RR matches completed</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
-          <li>Attempt to start KO phase or submit KO score with 1 RR match remaining</li>
-          <li>Complete the 6th RR match</li>
-          <li>Observe automatic phase transition</li>
+          <li>Attempt to trigger KO phase before last RR match scored</li>
+          <li>Submit final (66th) RR match score</li>
+          <li>Observe what happens automatically</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>KO matches NOT generated until final RR match scored</li>
-          <li>No "Start Knockout" manual action needed — automatic transition</li>
-          <li>After 6th score: KO bracket generated immediately</li>
-          <li>Phase indicator changes from "Group Stage" to "Knockout"</li>
-          <li>Top 4 teams from RR seeded into KO bracket</li>
+          <li>KO bracket NOT generated with 1 RR match remaining</li>
+          <li>After 66th score: KO bracket auto-generated immediately</li>
+          <li>Phase indicator transitions from "Group Stage" to "Knockout"</li>
+          <li>Top 8 teams from RR standings seeded into KO bracket</li>
+          <li>Teams 9–12 shown as "Did not advance"</li>
         </ul></div>
       </div>
     </div>
 
-    <!-- RRKO-003 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">RRKO-003</div>
-        <div class="scenario-title">RR standings seed the KO bracket correctly</div>
-        <span class="badge badge-green scenario-type">Happy Path · Seeding</span>
+        <div class="scenario-title">RR standings seed the KO bracket positions correctly</div>
+        <span class="badge badge-green">Happy Path · Seeding</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>RR+KO, top 4 advance, RR final standings: A(1st), B(2nd), C(3rd), D(4th)</li>
+          <li>RR+KO, top 8 advance. After RR: T1 through T8 ranked 1–8.</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
           <li>Complete all RR matches</li>
-          <li>Observe KO bracket seedings</li>
+          <li>Observe KO bracket</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>Team A assigned KO seed 1</li>
-          <li>Team B assigned KO seed 2</li>
-          <li>Team C assigned KO seed 3</li>
-          <li>Team D assigned KO seed 4</li>
-          <li>KO bracket: A(1) vs D(4), B(2) vs C(3) in semi-finals</li>
+          <li>T1 = KO seed 1, T2 = KO seed 2, … T8 = KO seed 8</li>
+          <li>QF matchups: T1 vs T8, T2 vs T7, T3 vs T6, T4 vs T5</li>
+          <li>T1 and T2 on opposite sides of bracket (earliest meeting = Final)</li>
         </ul></div>
       </div>
     </div>
 
-    <!-- RRKO-004 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">RRKO-004</div>
-        <div class="scenario-title">Manual seed review before first KO score</div>
-        <span class="badge badge-orange scenario-type">Edge Case · Seed Editing</span>
+        <div class="scenario-title">Organizer can manually adjust seeds before first KO score</div>
+        <span class="badge badge-orange">Edge Case · Seed Edit</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>RR+KO, KO phase just started, no KO scores yet</li>
+          <li>RR+KO, KO phase just started, 0 KO scores submitted yet</li>
           <li><code>knockoutConfig['manual_seeding_review'] = true</code></li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
-          <li>Organizer opens KO bracket view</li>
-          <li>Alert shown: "Review seeds before first match is scored"</li>
-          <li>Organizer swaps seeds for Team C and Team D</li>
-          <li>Confirms seed change via <code>restart_knockout</code> action</li>
+          <li>Organizer opens KO bracket view — alert appears</li>
+          <li>Organizer swaps T3 (seed 3) with T5 (seed 5)</li>
+          <li>Confirms via <code>restart_knockout</code></li>
           <li>Submits first KO score</li>
-          <li>Tries to edit seeds after first KO score</li>
+          <li>Attempts to edit seeds again</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>Seed swap accepted before any KO score submitted</li>
+          <li>Seed swap accepted before any KO score</li>
           <li>Bracket regenerated with swapped seeds</li>
-          <li>Alert not shown after first KO score is submitted</li>
-          <li>Seed editing rejected after first KO score ("Tournament in progress")</li>
-          <li>Seeds locked permanently once KO phase scores begin</li>
+          <li>After first KO score submitted: seed editing blocked permanently</li>
+          <li>Alert no longer shown after first KO score</li>
         </ul></div>
       </div>
     </div>
 
-    <!-- RRKO-005 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">RRKO-005</div>
-        <div class="scenario-title">RR scores locked once KO phase has started</div>
-        <span class="badge badge-red scenario-type">Error · Lock Enforcement</span>
+        <div class="scenario-title">RR match scores locked once KO phase begins</div>
+        <span class="badge badge-red">Error · Lock Enforcement</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>RR+KO, KO phase active (at least 1 KO score submitted)</li>
+          <li>RR+KO, KO phase active (≥1 KO score submitted)</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
-          <li>Organizer attempts to edit a previously submitted RR match score</li>
+          <li>Attempt to edit a completed RR match score</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>Edit action rejected (canEditMatch() returns false for RR matches post-KO start)</li>
-          <li>Error message: "Group stage scores cannot be modified once knockout has started"</li>
-          <li>RR match shown as read-only in UI</li>
+          <li>Edit rejected: <code>canEditMatch()</code> returns false for RR matches after KO start</li>
+          <li>Error: "Group stage scores cannot be changed once knockout has started"</li>
+          <li>RR matches displayed as read-only</li>
           <li>KO matches remain editable until tournament ends</li>
         </ul></div>
       </div>
     </div>
 
-    <!-- RRKO-006 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">RRKO-006</div>
-        <div class="scenario-title">Teams not advancing: eliminated after RR phase</div>
-        <span class="badge badge-orange scenario-type">Edge Case · Non-advancement</span>
+        <div class="scenario-title">Teams that don't advance: final rank is their RR position</div>
+        <span class="badge badge-orange">Edge Case · Non-advancement</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>RR+KO with 8 teams, top 4 advance</li>
-          <li>RR phase complete</li>
+          <li>RR+KO, 12 teams, top 8 advance. RR phase complete.</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
-          <li>Complete all RR matches, teams ranked 1–8</li>
-          <li>Observe KO bracket</li>
-          <li>Check status of teams 5–8</li>
+          <li>Complete all RR matches — T9, T10, T11, T12 ranked last</li>
+          <li>Check KO bracket and final standings</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>Only teams ranked 1–4 appear in KO bracket</li>
-          <li>Teams 5–8 shown as "Eliminated" or "Did not advance" in standings</li>
-          <li>Final rank of teams 5–8 is their RR finish position (5th–8th)</li>
-          <li>No KO matches created for teams 5–8</li>
+          <li>T9–T12 do not appear in KO bracket</li>
+          <li>T9 shown as 9th place overall, T10 as 10th, etc.</li>
+          <li>No KO matches created or assigned to T9–T12</li>
         </ul></div>
       </div>
     </div>
 
-    <!-- RRKO-007 -->
     <div class="scenario">
       <div class="scenario-header">
         <div class="scenario-id">RRKO-007</div>
-        <div class="scenario-title">Final standings combine RR and KO positions</div>
-        <span class="badge badge-green scenario-type">Happy Path · Final Standings</span>
+        <div class="scenario-title">Final standings: KO results override RR positions for top 8</div>
+        <span class="badge badge-green">Happy Path · Final Standings</span>
       </div>
       <div class="scenario-body">
         <h4>Preconditions</h4>
         <div class="preconditions"><ul>
-          <li>RR+KO complete, 8 teams, top 4 advanced to KO</li>
-          <li>KO final played</li>
+          <li>RR+KO complete, 12 teams, top 8 advanced, KO Final played</li>
+          <li>T3 (3rd in RR) wins the entire KO bracket</li>
         </ul></div>
-
         <h4>Steps</h4>
         <div class="steps"><ol>
           <li>Complete all KO matches including the Final</li>
-          <li>View final tournament standings</li>
+          <li>View complete tournament standings</li>
         </ol></div>
-
         <h4>Assertions</h4>
         <div class="assertions"><ul>
-          <li>KO winner = 1st place overall</li>
-          <li>KO runner-up = 2nd place overall</li>
-          <li>KO semi-final losers = 3rd and 4th place (shared or differentiated by RR rank)</li>
-          <li>Teams 5–8 = RR finish positions</li>
-          <li>8 unique rank positions displayed</li>
+          <li>T3 = 1st place overall (KO winner supersedes RR position)</li>
+          <li>KO runner-up = 2nd place</li>
+          <li>KO semi-final losers = 3rd / 4th</li>
+          <li>KO QF losers = 5th–8th (ordered by RR seeding)</li>
+          <li>T9–T12 = 9th–12th (their RR finish)</li>
+          <li>12 unique ranked positions displayed</li>
         </ul></div>
       </div>
     </div>
 
 
-    <!-- ════════════════════════════════
+    <!-- ═══════════════════════════════════════
          CROSS-CUTTING
-    ════════════════════════════════ -->
+    ═══════════════════════════════════════ -->
     <div id="cross-cutting" class="section-header">
       <div class="section-icon" style="background:#F8F9FA">⚙️</div>
       <div>
         <div class="section-title">Cross-Cutting Scenarios</div>
-        <div class="section-sub">Permissions, resets, concurrent updates, error states — all tournament types</div>
+        <div class="section-sub">Permissions, concurrency, feature flags, resets, error states — applies to all tournament types</div>
       </div>
       <div class="section-badge"><span class="badge badge-gray">9 scenarios</span></div>
     </div>
 
     <div class="cross-grid">
 
-      <!-- CC-001 -->
       <div class="scenario">
         <div class="scenario-header">
           <div class="scenario-id">CC-001</div>
-          <div class="scenario-title">Non-organizer cannot submit score</div>
-          <span class="badge badge-red scenario-type">Permission</span>
+          <div class="scenario-title">Non-organizer cannot submit a score</div>
+          <span class="badge badge-red">Permission</span>
         </div>
         <div class="scenario-body">
           <h4>Steps</h4>
           <div class="steps"><ol>
-            <li>Regular participant (non-organizer) attempts to submit match score</li>
+            <li>Regular participant (not event organizer) taps score entry on any match</li>
           </ol></div>
           <h4>Assertions</h4>
           <div class="assertions"><ul>
-            <li>API returns 403 Forbidden</li>
-            <li>Score NOT stored in database</li>
-            <li>UI shows "Permission denied" or hides score entry form for non-organizers</li>
+            <li>Score entry form not shown to non-organizers</li>
+            <li>Direct API call returns 403 Forbidden</li>
+            <li>Score NOT stored; standings NOT updated</li>
           </ul></div>
         </div>
       </div>
 
-      <!-- CC-002 -->
       <div class="scenario">
         <div class="scenario-header">
           <div class="scenario-id">CC-002</div>
           <div class="scenario-title">Non-organizer cannot end tournament</div>
-          <span class="badge badge-red scenario-type">Permission</span>
+          <span class="badge badge-red">Permission</span>
         </div>
         <div class="scenario-body">
           <h4>Steps</h4>
           <div class="steps"><ol>
-            <li>Regular participant triggers end-tournament action</li>
+            <li>Regular participant invokes end-tournament action</li>
           </ol></div>
           <h4>Assertions</h4>
           <div class="assertions"><ul>
-            <li>"End Tournament" button not shown to non-organizers</li>
-            <li>If accessed via API: 403 returned</li>
-            <li>Tournament status not changed</li>
+            <li>"End Tournament" button not visible to non-organizers</li>
+            <li>API endpoint returns 403 if called directly</li>
+            <li>Tournament status unchanged</li>
           </ul></div>
         </div>
       </div>
 
-      <!-- CC-003 -->
       <div class="scenario">
         <div class="scenario-header">
           <div class="scenario-id">CC-003</div>
-          <div class="scenario-title">Concurrent score submission: race condition safe</div>
-          <span class="badge badge-orange scenario-type">Concurrency</span>
+          <div class="scenario-title">Concurrent score submissions for same match are safe</div>
+          <span class="badge badge-orange">Concurrency</span>
         </div>
         <div class="scenario-body">
           <h4>Preconditions</h4>
           <div class="preconditions"><ul>
-            <li>Two organizers simultaneously try to submit score for same match</li>
+            <li>Two organizers simultaneously submit different scores for the same match</li>
           </ul></div>
           <h4>Steps</h4>
           <div class="steps"><ol>
-            <li>Organizer A submits score 16–9 at t=0</li>
-            <li>Organizer B submits score 16–8 for same match at t=0+50ms</li>
+            <li>Organizer A submits 16–9 at t=0</li>
+            <li>Organizer B submits 16–8 for same match at t+50ms</li>
           </ol></div>
           <h4>Assertions</h4>
           <div class="assertions"><ul>
-            <li>Exactly one score stored (no split-brain)</li>
-            <li>Last-write-wins OR optimistic lock prevents double-write</li>
-            <li>Standings reflect only one version of the score</li>
-            <li>No 500 error from duplicate match update</li>
+            <li>Exactly one score stored (no split-brain state)</li>
+            <li>Standings reflect only one consistent result</li>
+            <li>No 500 error from concurrent update</li>
           </ul></div>
         </div>
       </div>
 
-      <!-- CC-004 -->
       <div class="scenario">
         <div class="scenario-header">
           <div class="scenario-id">CC-004</div>
-          <div class="scenario-title">Score submission on completed match is idempotent</div>
-          <span class="badge badge-orange scenario-type">Idempotency</span>
+          <div class="scenario-title">Submitting same score twice is idempotent</div>
+          <span class="badge badge-orange">Idempotency</span>
         </div>
         <div class="scenario-body">
           <h4>Steps</h4>
           <div class="steps"><ol>
-            <li>Submit same score twice for same match</li>
+            <li>Submit identical score twice for same match</li>
           </ol></div>
           <h4>Assertions</h4>
           <div class="assertions"><ul>
-            <li>Second submission either accepted (no-op) or rejected gracefully</li>
-            <li>Standings not double-counted</li>
-            <li>No duplicate standings records created</li>
+            <li>Second submission accepted as no-op or gracefully rejected</li>
+            <li>Standings NOT double-counted</li>
+            <li>No duplicate standing records created</li>
           </ul></div>
         </div>
       </div>
 
-      <!-- CC-005 -->
       <div class="scenario">
         <div class="scenario-header">
           <div class="scenario-id">CC-005</div>
-          <div class="scenario-title">Tournament end while matches still pending</div>
-          <span class="badge badge-orange scenario-type">Edge Case</span>
+          <div class="scenario-title">Tournament ended while matches still pending</div>
+          <span class="badge badge-orange">Edge Case</span>
         </div>
         <div class="scenario-body">
           <h4>Steps</h4>
           <div class="steps"><ol>
-            <li>End tournament with 2 pending unplayed matches</li>
+            <li>End tournament with 3 pending unplayed matches</li>
           </ol></div>
           <h4>Assertions</h4>
           <div class="assertions"><ul>
-            <li>Tournament ends successfully (organizer intent respected)</li>
-            <li>Pending matches show as <code>voided</code> or <code>cancelled</code></li>
-            <li>Standings based only on completed matches</li>
-            <li>Final rankings do not include void match data</li>
+            <li>Tournament ends (organizer intent respected)</li>
+            <li>Pending matches voided / cancelled</li>
+            <li>Final standings based only on completed matches</li>
+            <li>Void matches not counted in win/loss totals</li>
           </ul></div>
         </div>
       </div>
 
-      <!-- CC-006 -->
       <div class="scenario">
         <div class="scenario-header">
           <div class="scenario-id">CC-006</div>
-          <div class="scenario-title">Feature flag off: tournament type not available</div>
-          <span class="badge badge-purple scenario-type">Feature Flag</span>
+          <div class="scenario-title">miniTournament flag off: RR/KO/RRKO not shown</div>
+          <span class="badge badge-purple">Feature Flag</span>
         </div>
         <div class="scenario-body">
           <h4>Steps</h4>
           <div class="steps"><ol>
             <li>Disable <code>miniTournament</code> PostHog flag</li>
-            <li>Open event creation → tournament type selector</li>
+            <li>Open event → Create Tournament → type selector</li>
           </ol></div>
           <h4>Assertions</h4>
           <div class="assertions"><ul>
-            <li>Round Robin, Knockout, RR+KO not shown in type selector</li>
-            <li>Existing mini tournaments still viewable (flag only gates creation)</li>
-            <li>Americano/Mexicano/KOC unaffected by miniTournament flag</li>
+            <li>Round Robin, Knockout, RR+KO options hidden from type list</li>
+            <li>Existing mini tournaments still viewable (read-only)</li>
+            <li>Americano, Mexicano, KOC unaffected by this flag</li>
           </ul></div>
         </div>
       </div>
 
-      <!-- CC-007 -->
       <div class="scenario">
         <div class="scenario-header">
           <div class="scenario-id">CC-007</div>
-          <div class="scenario-title">Tournament reset: all data destroyed, fresh start</div>
-          <span class="badge badge-red scenario-type">Destructive</span>
+          <div class="scenario-title">Tournament reset: full data destruction, fresh start</div>
+          <span class="badge badge-red">Destructive</span>
         </div>
         <div class="scenario-body">
           <h4>Steps</h4>
           <div class="steps"><ol>
-            <li>Create tournament, complete 2 rounds</li>
-            <li>Trigger reset (type: 'reset')</li>
+            <li>Create tournament, complete 3 rounds</li>
+            <li>Trigger reset with confirmation</li>
           </ol></div>
           <h4>Assertions</h4>
           <div class="assertions"><ul>
-            <li>All existing matches deleted</li>
+            <li>All matches from all rounds deleted</li>
             <li>All standings reset to 0</li>
-            <li>Tournament regenerated from scratch</li>
-            <li>Confirmation dialog shown before destructive reset</li>
+            <li>Tournament regenerated fresh</li>
+            <li>Destructive confirmation dialog shown first</li>
             <li>Non-organizer cannot reset</li>
           </ul></div>
         </div>
       </div>
 
-      <!-- CC-008 -->
       <div class="scenario">
         <div class="scenario-header">
           <div class="scenario-id">CC-008</div>
-          <div class="scenario-title">Player removed from event mid-tournament</div>
-          <span class="badge badge-orange scenario-type">Edge Case</span>
+          <div class="scenario-title">Minimum player count validation prevents bad tournament creation</div>
+          <span class="badge badge-red">Validation</span>
         </div>
         <div class="scenario-body">
           <h4>Steps</h4>
           <div class="steps"><ol>
-            <li>Active tournament with 8 players</li>
-            <li>Organizer removes player from event (not tournament)</li>
+            <li>Attempt to create each tournament type below its minimum player requirement</li>
           </ol></div>
           <h4>Assertions</h4>
           <div class="assertions"><ul>
-            <li>Existing match assignments not retroactively changed</li>
-            <li>Removed player's historical scores preserved</li>
-            <li>If removed player has pending round match: organizer warned</li>
+            <li>KOC with 11 players + 3 courts → "Requires exactly 12 players"</li>
+            <li>Americano with 3 players → "Minimum 4 players"</li>
+            <li>RR with 1 team → "Minimum 2 teams"</li>
+            <li>All errors shown in-app before API call (client validation)</li>
+            <li>API also rejects if client validation is bypassed</li>
           </ul></div>
         </div>
       </div>
 
-      <!-- CC-009 -->
       <div class="scenario">
         <div class="scenario-header">
           <div class="scenario-id">CC-009</div>
-          <div class="scenario-title">Tournament on event with single court vs multi-court</div>
-          <span class="badge badge-blue scenario-type">Configuration</span>
+          <div class="scenario-title">Event ends while tournament is still in progress</div>
+          <span class="badge badge-orange">Edge Case</span>
         </div>
         <div class="scenario-body">
           <h4>Steps</h4>
           <div class="steps"><ol>
-            <li>Americano with 8 players, 1 court</li>
-            <li>Americano with 8 players, 2 courts</li>
+            <li>Organizer ends the event (not just the tournament) while rounds are active</li>
           </ol></div>
           <h4>Assertions</h4>
           <div class="assertions"><ul>
-            <li>1 court: 4 players play each round, 4 wait (not valid for Americano — should fail or use alternating rounds)</li>
-            <li>2 courts: all 8 players play simultaneously each round</li>
-            <li>Court count determines rounds needed for all players to meet</li>
+            <li>Tournament auto-ends when event ends</li>
+            <li>Final standings based on scores submitted up to event end</li>
+            <li>Pending matches cannot be scored after event end</li>
+            <li>Participants see event as archived, not active</li>
           </ul></div>
         </div>
       </div>
 
     </div><!-- /cross-grid -->
 
-
   </main>
 </div>
 
-<!-- ══════════════════════════════════════════════
-     FOOTNOTE
-══════════════════════════════════════════════ -->
 <div class="footnote">
-  <span>The Padel Society · E2E Tournament Test Scenarios v1.0 · April 2026</span>
-  <span>Engine: event-tournament-v3 · Challonge integration · PostHog feature flags</span>
+  <span>The Padel Society · E2E Tournament Test Plan v1.0 · April 2026</span>
+  <span>Engines: event-tournament-v3 (local + KOC) · Challonge (mini tournaments) · PostHog feature flags</span>
 </div>
 
 </body>
