@@ -529,7 +529,7 @@
         <table>
           <thead>
             <tr>
-              <th>Format</th><th>Engine</th><th>Partners</th><th>Sit-outs</th>
+              <th>Format</th><th>Engine</th><th>Partners</th><th>Sit-outs <span title="See footnote below table" style="cursor:help;color:var(--mid)">ⓘ</span></th>
               <th>Pairing Logic</th><th>Round Generation</th><th>Typical Setup</th>
             </tr>
           </thead>
@@ -538,7 +538,7 @@
               <td><strong>Americano</strong></td>
               <td><span class="badge badge-green">v3 local</span></td>
               <td>Rotate every round</td>
-              <td class="cross">✗</td>
+              <td style="color:var(--mid);font-size:12px">N/A ¹</td>
               <td>Random per court</td>
               <td>All upfront + add-on</td>
               <td>16 players, 4 courts</td>
@@ -547,7 +547,7 @@
               <td><strong>Team Americano</strong></td>
               <td><span class="badge badge-green">v3 local</span></td>
               <td>Fixed (same 2 always)</td>
-              <td class="cross">✗</td>
+              <td style="color:var(--mid);font-size:12px">N/A ¹</td>
               <td>Random teams per court</td>
               <td>All upfront + add-on</td>
               <td>16 players (8 teams), 4 courts</td>
@@ -574,7 +574,7 @@
               <td><strong>King of Courts</strong></td>
               <td><span class="badge badge-orange">v3 KOC</span></td>
               <td>Rotate within court</td>
-              <td class="cross">✗</td>
+              <td style="color:var(--mid);font-size:12px">N/A ²</td>
               <td>Random within court → promote/relegate</td>
               <td>Next round only</td>
               <td>12 players, 3 courts (exactly 4×courts)</td>
@@ -583,7 +583,7 @@
               <td><strong>Team King of Courts</strong></td>
               <td><span class="badge badge-orange">v3 KOC</span></td>
               <td>Fixed teams rotate courts</td>
-              <td class="cross">✗</td>
+              <td style="color:var(--mid);font-size:12px">N/A ²</td>
               <td>Court rotation on result</td>
               <td>Next round only</td>
               <td>12 players (6 teams), 3 courts</td>
@@ -617,6 +617,10 @@
             </tr>
           </tbody>
         </table>
+        <div style="margin-top:14px;padding:14px 18px;background:var(--gray-light);border-radius:8px;border-left:3px solid var(--mid);font-size:13px;color:var(--mid);line-height:1.7">
+          <strong style="color:var(--dark)">¹ Americano / Team Americano — creation enforces multiples of 4:</strong> Player count must equal 4 × courts. If you try to add a 17th player to a 4-court event, creation is blocked. Because the count is always exactly full, there are never leftover players to sit out.<br>
+          <strong style="color:var(--dark)">² King of Courts (both variants) — creation enforces exact count:</strong> Individual KOC requires exactly 4×courts players; Team KOC requires exactly 2×courts teams. The creation form validates this hard — no partial fills allowed. Sit-outs are structurally impossible.
+        </div>
       </div>
     </div>
 
